@@ -4,13 +4,14 @@ import { rankOpportunities } from './ranker.mjs';
 import { parseNumber, buildReportText } from './helpers.mjs';
 import { preparationSteps, scenarioRoute } from './guidance.mjs';
 import { SAMPLE_DOCUMENT, planActions, provenanceRecord } from './extraction.mjs';
+import { energyStatus, condensatePlan, familyGuidance } from './plan.mjs';
 
 const $ = id => document.getElementById(id);
 const state = { model: null, report: null, dirty: true, demo: true, view: 'analiz', guided: false, provenance: null };
 const extraction = { result: null, file: null, busy: false, sample: false };
 const numericFields = {
   electricity: 'Elektrik tüketimi', gas: 'Doğal gaz tüketimi', lhv: 'Gaz alt ısıl değeri', production: 'Üretim miktarı', hours: 'Çalışma süresi', employees: 'Çalışan sayısı',
-  flow: 'Ek sıvı kondens debisi', 'scenario-hours': 'Senaryo çalışma süresi', 'return-temp': 'Kondens dönüş sıcaklığı', 'makeup-temp': 'Taze su sıcaklığı', efficiency: 'Kazan verimi', 'aux-electricity': 'Ek elektrik tüketimi', 'gas-price': 'Gaz fiyatı', 'electricity-price': 'Elektrik fiyatı', 'operating-cost': 'İşletme maliyeti', investment: 'Yatırım tutarı'
+  flow: 'Ek sıvı kondens debisi', 'scenario-hours': 'Senaryo çalışma süresi', 'return-temp': 'Kondens dönüş sıcaklığı', 'makeup-temp': 'Taze su sıcaklığı', efficiency: 'Kazan verimi', 'aux-electricity': 'Ek elektrik tüketimi', 'gas-price': 'Gaz fiyatı', 'electricity-price': 'Elektrik fiyatı', 'operating-cost': 'İşletme maliyeti', investment: 'Yatırım tutarı', 'max-payback': 'Kabul edilen geri ödeme'
 };
 const fieldTranslations = { electricityKWh: 'Elektrik tüketimi', gasSm3: 'Doğal gaz tüketimi', productionTon: 'Üretim miktarı', gasLhvKWhPerSm3: 'Gaz alt ısıl değeri', annualHours: 'Çalışma süresi', employees: 'Çalışan sayısı', period: 'Tesis dönemi', 'scenario.period': 'Senaryo dönemi', operatingHours: 'Senaryo çalışma süresi', additionalLiquidFlowKgPerHour: 'Ek sıvı kondens debisi', returnTemperatureC: 'Kondens dönüş sıcaklığı', makeupTemperatureC: 'Taze su sıcaklığı', boilerEfficiencyLhv: 'Kazan verimi', additionalElectricityKWh: 'Ek elektrik', additionalOperatingCostTl: 'İşletme maliyeti', gasPriceTlPerSm3: 'Gaz fiyatı', electricityPriceTlPerKWh: 'Elektrik fiyatı', investmentTl: 'Yatırım tutarı', 'baseline.gasSm3': 'Tesis doğal gaz tüketimi', 'baseline.gasLhvKWhPerSm3': 'Gaz alt ısıl değeri' };
 const families = [
@@ -86,10 +87,14 @@ function calculate() {
     let scenarioInput = null, scenario;
     try { scenarioInput = getScenario(profile); scenario = calculateCondensate(profile, scenarioInput, factors); }
     catch(error) { scenario = {status:'blocked',reasons:(error.errors || [{message:error.message}]).map(issue=>({code:'invalid_scenario_input',message:explainIssue(issue)}))}; }
-    state.report = {generatedAt:new Date().toISOString(),profile,baseline,ranking,scenario,scenarioInput,demo:state.demo,modelVersion:state.model?.metadata?.version || null,provenance:state.sample === 'extracted' ? state.provenance : null};
+    const maxPaybackMonths = numeric('max-payback');
+    if (maxPaybackMonths !== null && (maxPaybackMonths <= 0 || maxPaybackMonths > 120)) throw new Error('Kabul edilen geri ödeme: 0’dan büyük ve en fazla 120 ay olmalı.');
+    state.report = {generatedAt:new Date().toISOString(),profile,baseline,ranking,scenario,scenarioInput,maxPaybackMonths,demo:state.demo,modelVersion:state.model?.metadata?.version || null,provenance:state.sample === 'extracted' ? state.provenance : null};
+    state.report.energyStatus = energyStatus(state.report);
+    state.report.plan = condensatePlan(state.report, { maxPaybackMonths });
     state.dirty = false;
     document.body.classList.remove('report-dirty');
-    renderProfileSummary(profile); renderBaseline(baseline); renderRanking(ranking, profile); renderScenario(scenario); renderPreparation(state.report); renderReport(state.report); renderTour();
+    renderProfileSummary(profile); renderBaseline(baseline); renderEnergyStatus(state.report); renderRanking(ranking, profile); renderScenario(scenario); renderPlan(state.report); renderPreparation(state.report); renderReport(state.report); renderTour();
     $('status').classList.remove('dirty');
     $('status').textContent = `Son güncelleme ${new Date().toLocaleTimeString('tr-TR', {hour:'2-digit',minute:'2-digit'})}${ranking.status === 'abstained' ? ' · Model sıralaması üretilmedi' : ''}${scenario.status === 'calculated' ? '' : ' · Kondens hesabı hazır değil'}`;
     $('error-box').hidden = true;
@@ -206,11 +211,41 @@ function renderRanking(ranking, profile) {
     const node = element('div',`opportunity ${entry.type}`), body = element('div','opportunity-body'), head = element('div','opportunity-head');
     const label = {eligible:'İnceleme adayı',unknown:'Ekipman teyidi',excluded:'Sistem yok',unranked:'Sıralama yok'}[entry.type];
     head.append(element('h3','',entry.name),element('span',`tag ${entry.type === 'eligible' ? 'green' : entry.type === 'unknown' ? 'amber' : 'neutral'}`,label));
-    body.append(head,element('p','',entry.type === 'excluded' ? 'Sistem bulunmadığı için bu tesisin kapsamı dışında.' : entry.next));
+    body.append(head,element('p','',entry.type === 'excluded' ? 'Sistem bulunmadığı için bu tesisin kapsamı dışında.' : (state.report ? familyGuidance(entry.family, state.report, state.report.plan) : '') || entry.next));
     if (typeof entry.score === 'number') { const score = element('span','opportunity-score',`Benzerlik ${number(entry.score,3)}`); score.title = 'Geçmiş ITAC kayıtlarındaki benzerlik skoru (0–1); uygunluk veya tasarruf olasılığı değildir.'; body.append(score); }
     node.append(element('span','opportunity-number',entry.rank ? String(entry.rank).padStart(2,'0') : '—'),body); return node;
   });
   $('opportunities').replaceChildren(...nodes);
+}
+
+function renderEnergyStatus(report) {
+  const root = $('energy-status'), status = report.energyStatus; root.replaceChildren();
+  if (!status) { root.hidden = true; return; }
+  root.hidden = false; root.className = `energy-status ${status.status}`;
+  const list = element('ul'); status.points.forEach(point => list.append(element('li', '', point)));
+  root.append(element('p', 'eyebrow', 'YÜKÜMLÜLÜK VE DESTEK'), element('h3', '', status.title), list);
+}
+
+function planList(plan) {
+  const list = element('ol', 'plan-steps');
+  for (const step of plan.steps) { const item = element('li', step.done ? 'done' : ''), copy = element('div'); copy.append(element('h4', '', step.title), element('p', '', step.body)); item.append(copy); list.append(item); }
+  return list;
+}
+
+function renderPlan(report) {
+  const root = $('action-plan'), plan = report.plan; root.replaceChildren();
+  if (!plan) { root.hidden = true; return; }
+  root.hidden = false;
+  const t = plan.thresholds;
+  const kpi = (value, label) => { const box = element('div', 'plan-kpi'); box.append(element('strong', '', value), element('span', '', label)); return box; };
+  const kpis = element('div', 'plan-kpis');
+  kpis.append(kpi(t.minFlowKgH === null ? '—' : `≥ ${number(Math.ceil(t.minFlowKgH / 5) * 5)} kg/saat`, 'Ölçülmesi gereken ek debi'),
+    kpi(t.minReturnTempC === null ? '—' : `≥ ${number(t.minReturnTempC, 1)} °C`, 'Dönüş sıcaklığı alt sınırı'),
+    kpi(t.maxInvestmentTl === null ? '—' : `≤ ${number(t.maxInvestmentTl)} TL`, 'Teklif tavanı'),
+    kpi(`≈ ${number(plan.waterM3)} m³`, 'Yıllık su tasarrufu'));
+  root.append(element('p', 'eyebrow', 'BU TESİS İÇİN UYGULAMA PLANI'),
+    element('h3', '', `Karar sınırı: ${number(plan.limitMonths)} ay geri ödeme${plan.limitSource === 'owner' ? ' (işletmenin beyanı)' : ' (Task 1 referansı)'}`),
+    element('p', 'muted', 'Eşikler bu tesisin girdilerinden, aynı hesap motoruyla tersinden çözüldü; pompa elektriği ve bakım gideri sabit kabul edildi. Sahada ölçülen değer eşiğin doğru tarafındaysa karar değişmez.'), kpis, planList(plan));
 }
 
 function makeTable(rows, className = 'report-table', header = null) {
@@ -244,6 +279,7 @@ function renderReport(report) {
   summary.append(element('p','',s.status === 'calculated' ? (s.netEnergySavingsKWh !== null ? `Girilen koşullarda kondens geri kazanımı, dönem boyunca ${number(s.netEnergySavingsKWh/1000,1)} MWh net enerji azalması sağlayabilir. ${s.finalEnergyReductionPercent === null ? 'Toplam tüketimdeki payı için başlangıç verileri tamamlanmalı.' : `Bu, başlangıçtaki toplam enerjinin %${number(s.finalEnergyReductionPercent,2)} kadarıdır.`}` : 'Isı geri kazanımı hesaplandı. Ek elektrik tüketimi eksik olduğu için net enerji sonucu henüz tamamlanmadı.') : scenarioRoute(report).body));
   summary.append(element('p','report-note','Önlem sıralaması deneysel modelden, sayısal etki ayrı mühendislik hesabından gelir. Bu sonuç bir yatırım onayı değildir.'));root.append(summary);
   root.append(element('h3','','Mevcut durum'),makeTable([['Dönem elektrik tüketimi',`${number(p.electricityKWh)} kWh`],['Dönem doğal gaz tüketimi',`${number(p.gasSm3)} Sm³`],['Gaz alt ısıl değeri',`${number(p.gasLhvKWhPerSm3,3)} kWh/Sm³`],['Üretim miktarı',`${number(p.productionTon)} ton`],['Toplam nihai enerji',`${number(b.totalFinalEnergyKWh)} kWh`],['Enerji yoğunluğu',`${number(b.energyIntensityKWhPerTon,2)} kWh/ton`],['NAICS sektör kodu',p.naics || 'Bilinmiyor']]));
+  if(report.energyStatus){const list=element('ul','report-list');report.energyStatus.points.forEach(point=>list.append(element('li','',point)));root.append(element('h3','','Yükümlülük ve destek durumu'),element('p','report-note',report.energyStatus.title),list);}
   root.append(element('h3','','Kondens senaryosunun hesaplanan etkisi'));
   if(s.status === 'calculated') root.append(makeTable([['Net enerji azalması',`${number(s.netEnergySavingsKWh)} kWh · %${number(s.finalEnergyReductionPercent,2)}`],['Net dönem maliyet azalması',`${number(s.netSavingsTl,2)} TL`],['Basit geri ödeme',s.simplePaybackMonths === null ? s.paybackUnavailableReason : `${number(s.simplePaybackMonths,2)} ay`],['Demo emisyon azalması',s.emissionsReductionTco2 === null ? 'Katsayı seçilmedi; hesaplanmadı' : `${number(s.emissionsReductionTco2,2)} tCO₂ — yalnız demo varsayımı`]]));
   else for(const issue of s.reasons) root.append(element('p','report-note',explainIssue(issue)));
@@ -264,7 +300,8 @@ function renderReport(report) {
   root.append(element('h3','','Bundan sonra ne yapılmalı?'));
   const steps=preparationSteps(report);
   if(steps.length)root.append(stepList(steps,false));
-  else root.append(element('p','report-note',s.status === 'ineligible' ? 'Kondens yerine tesiste mevcut diğer sistemler için bir uzmanla inceleme planlayın. Bu rapordan kondens tasarrufu sonucu çıkarılamaz.' : 'Bir enerji uzmanıyla geri kullanım uygunluğunu, ek debiyi, sıcaklıkları ve çalışma süresini sahada doğrulayın. Maliyetleri tekliflerle güncelleyin. Uygulama sonrasında aynı kapsamda tüketim ve üretim ölçerek etkiyi karşılaştırın.'));
+  if(report.plan)root.append(element('p','report-note',`Karar sınırı: ${number(report.plan.limitMonths)} ay geri ödeme${report.plan.limitSource === 'owner' ? ' (işletmenin beyanı)' : ' (Task 1 referansı)'}. Eşikler bu tesisin girdilerinden hesaplandı.`),planList(report.plan));
+  else if(!steps.length)root.append(element('p','report-note',s.status === 'ineligible' ? 'Kondens yerine tesiste mevcut diğer sistemler için bir uzmanla inceleme planlayın. Bu rapordan kondens tasarrufu sonucu çıkarılamaz.' : 'Bir enerji uzmanıyla geri kullanım uygunluğunu, ek debiyi, sıcaklıkları ve çalışma süresini sahada doğrulayın. Maliyetleri tekliflerle güncelleyin. Uygulama sonrasında aynı kapsamda tüketim ve üretim ölçerek etkiyi karşılaştırın.'));
   root.append(element('p','report-note','Model sınırı: deneysel sıralama basit sektör karşılaştırmasını geçmedi. Türkiye’de saha doğrulaması yoktur; sıralama teknik uygunluk veya tasarruf olasılığı değildir.'));
   const audit=element('details','input-help report-audit');audit.append(element('summary','','Ayrıntılı hesap ve model kaydı'),element('p','report-note','Girdiler, katsayılar ve model sınırları. “Bilinmiyor” sıfır anlamına gelmez. Veri dosyası (JSON) ayrıca indirilebilir.'),element('div','report-pre',buildReportText(report)));root.append(audit);
 }
@@ -286,6 +323,7 @@ function loadSample(sample) {
   setValue('reuse-suitable',equipmentValue(scenario.reuseSuitable));$('flow-confirmation').checked=Boolean(scenario.flowBasis);
   for(const [id,key] of [['flow','additionalLiquidFlowKgPerHour'],['scenario-hours','operatingHours'],['return-temp','returnTemperatureC'],['makeup-temp','makeupTemperatureC'],['aux-electricity','additionalElectricityKWh'],['operating-cost','additionalOperatingCostTl'],['gas-price','gasPriceTlPerSm3'],['electricity-price','electricityPriceTlPerKWh'],['investment','investmentTl']])setValue(id,scenario[key]);
   setValue('efficiency',scenario.boilerEfficiencyLhv === undefined ? null : scenario.boilerEfficiencyLhv*100);
+  setValue('max-payback',null);
   $('demo-notice').hidden=!state.demo;$('data-badge').textContent=state.demo ? 'DEMO VERİ' : 'KULLANICI GİRDİSİ';$('data-badge').className=`tag ${state.demo ? 'amber' : 'neutral'}`;
   for(const name of ['turgutlu','menemen','eksik','blank'])$(`load-${name}`).classList.toggle('active',name === sample);
   $('sample-menu').open = false;

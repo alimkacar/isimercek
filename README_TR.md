@@ -9,7 +9,8 @@ IsıMercek, Manisa ve Ege'deki gıda-içecek KOBİ'lerinde enerji ön incelemesi
 3. **İnsan onaylar:** Hiçbir değer onaysız forma girmez. Yıllık dönem, debi koşulu, geri kullanım uygunluğu ve NAICS önerisi her zaman kullanıcı onayı ister.
 4. **Deneysel sıralama:** ABD ITAC etütlerinden (751 eğitim / 151 doğrulama / 179 test) eğitilmiş küçük lojistik regresyon, beş önlem ailesine inceleme sırası verir. Model, basit alt sektör sıklığı karşılaştırmasını geçemediği için deneysel gösterilir (nDCG@3 0,8191 / 0,8431).
 5. **Mühendislik hesabı:** Kondens geri kazanımı; enerji, TL, geri ödeme ve CO₂ sonuçları modelden bağımsız, test edilmiş fonksiyonlarla hesaplanır.
-6. **Rapor:** Girdiler, varsayımlar, veri kaynağı (hangi alan Gemini'den geldi, hangisi doğrulandı) ve sonraki saha adımları tek raporda; JSON/metin indirilebilir.
+6. **Tesise özel uygulama planı:** Yıllık TEP'e göre yükümlülük ve destek durumu (1.000 TEP eşiği, VAP, TÜBİTAK 1831). Kondens önlemi için aynı hesaptan çözülen karar eşikleri: ölçülmesi gereken en az ek debi, dönüş sıcaklığı alt sınırı, teklif tavanı, gaz fiyatı tabanı. Finansman yolu işletmenin beyan ettiği geri ödeme sınırına göre seçilir; 12 aylık izleme hedefi Sm³/ton ve su sayacıyla verilir. Önlem ailelerinin sonraki adımları tesisin çalışma süresi, fiyatı ve eşikleriyle yazılır.
+7. **Rapor:** Girdiler, varsayımlar, veri kaynağı (hangi alan Gemini'den geldi, hangisi doğrulandı) ve sonraki saha adımları tek raporda; JSON/metin indirilebilir.
 
 Gemini hesap, sıralama veya karar üretmez. Bu ayrım bilinçlidir: dil modelleri enerji yatırımı kararlarında tutarsızdır (Shu ve Zhao, 2025); değeri, uzman emeğinin en çok gittiği veri toplama işini otomatikleştirmektir.
 
@@ -18,7 +19,7 @@ Gemini hesap, sıralama veya karar üretmez. Bu ayrım bilinçlidir: dil modelle
 1. Ana sayfada **Belgeden doldurmayı dene** düğmesine basın. Temsili bir 2023 enerji dosyası yüklenir.
 2. **Gemini ile alanları çıkar** düğmesine basın. Önerilen alanlar kaynak alıntıları ve “Metinde bulundu” kontrolüyle listelenir.
 3. Onay satırlarını (yıllık dönem, debi koşulu, geri kullanım, NAICS) okuyup işaretleyin, isterseniz CO₂ kutusunu seçin ve **Seçilen alanları forma aktar** deyin.
-4. Analiz, Senaryo ve Rapor adımlarında sonuçları görün. Temsili dosyayla beklenen sonuç: 9.165,9 MWh/yıl, 996,3 kWh/ton; kondens senaryosunda 302,1 MWh/yıl (%3,3), 554.562 TL/yıl, 9,7 ay geri ödeme, 58,83 tCO₂/yıl.
+4. Analiz, Senaryo ve Rapor adımlarında sonuçları görün. Temsili dosyayla beklenen sonuç: 9.165,9 MWh/yıl, 996,3 kWh/ton, ≈ 788 TEP; kondens senaryosunda 302,1 MWh/yıl (%3,3), 554.562 TL/yıl, 9,7 ay geri ödeme, 58,83 tCO₂/yıl. Uygulama planı: ek debi ≥ 675 kg/saat, dönüş ≥ 60,5 °C, teklif ≤ 693.202 TL, ≈ 4.000 m³/yıl su.
 
 Gemini'ye ulaşılamazsa (kota, anahtar) uygulamanın geri kalanı çalışır: **Açıklamalı örneği aç** aynı temsili tesisi hazır verilerle gösterir.
 
@@ -41,7 +42,7 @@ Node.js 20 veya üzeri gerekir. `npm start` → <http://127.0.0.1:4310>. Belgede
 
 ## Kontroller
 
-`npm test`: 52 otomatik test (hesap motoru, model eşitliği, giriş kontrolleri, çıkarım doğrulaması, model/şema yedekleri, sunucu rotaları). Örnek belgeden onaylanan alanların, doğrulanmış Turgutlu sonucunu (302.074,07 kWh; 554.561,67 TL; 9,74 ay) değiştirilmemiş motordan yeniden ürettiği test edilir. Ayrıntı: `KONTROL_NOTU.md`.
+`npm test`: 59 otomatik test (hesap motoru, model eşitliği, giriş kontrolleri, çıkarım doğrulaması, model/şema yedekleri, sunucu rotaları). Örnek belgeden onaylanan alanların, doğrulanmış Turgutlu sonucunu (302.074,07 kWh; 554.561,67 TL; 9,74 ay) değiştirilmemiş motordan yeniden ürettiği test edilir. Ayrıntı: `KONTROL_NOTU.md`.
 
 Model ve veri: `ml/model_card.md`, `ml/evaluation.json`, `ml/data/provenance.json`; eğitim `python3 ml/train.py` (Python + NumPy) ile yeniden üretilebilir.
 

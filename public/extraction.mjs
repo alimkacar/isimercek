@@ -41,7 +41,8 @@ KAZAN DAİRESİ VE SAHA NOTU (bakım şefi görüşmesi, Eylül 2023)
 - Kazan verimi (alt ısıl değere göre, baca gazı analizi): %90.
 - Kondens pompası ek elektrik tüketimi: yılda 8.000 kWh. Ek bakım gideri: yılda 10.000 TL.
 - Kondens geri dönüş hattı için tedarikçi teklifi: 450.000 TL.
-- Enerji uzmanı değerlendirmesi: kondensin kazana geri kullanımı uygun; kirlenme riski görülmedi.`;
+- Enerji uzmanı değerlendirmesi: kondensin kazana geri kullanımı uygun; kirlenme riski görülmedi.
+- İşletme sahibi: en fazla 15 ay içinde kendini ödeyen yatırımlara bütçe ayırabiliyor.`;
 
 const NUMBER_KINDS = new Set(['number']);
 

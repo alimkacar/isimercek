@@ -71,10 +71,14 @@ export function buildReportText(report) {
       'Senaryo girdileri: ' + JSON.stringify(s.model?.inputs || {}, null, 2));
     if (s.paybackUnavailableReason) lines.push(s.paybackUnavailableReason);
   } else for (const entry of s.reasons || [{ message: 'Senaryo hesaplanmadı.' }]) lines.push(entry.message);
+  if (report.energyStatus) lines.push('', 'YÜKÜMLÜLÜK VE DESTEK DURUMU', report.energyStatus.title, ...report.energyStatus.points.map(point => `- ${point}`));
   lines.push('', 'SONRAKİ ADIMLAR');
   const steps = preparationSteps(report);
   if (steps.length) steps.forEach((step,index)=>lines.push(`${index+1}. ${step.title}: ${step.body}`));
-  else lines.push(s.status === 'ineligible' ? 'Kondens hesabı bu koşulda uygun değildir; tesisteki diğer sistemler için uzman incelemesi planlayın.' : 'Teknik uygunluğu ve ölçümleri sahada doğrulatın. Tekliflerle maliyetleri güncelleyin. Uygulama sonrası aynı kapsamda tüketim ve üretim ölçerek etkiyi karşılaştırın.');
+  if (report.plan) {
+    lines.push(`UYGULAMA PLANI — karar sınırı ${report.plan.limitMonths} ay geri ödeme (${report.plan.limitSource === 'owner' ? 'işletmenin beyanı' : 'Task 1 referansı'})`);
+    report.plan.steps.forEach((step, index) => lines.push(`${index + 1}. ${step.done ? '[tamam] ' : ''}${step.title}: ${step.body}`));
+  } else if (!steps.length) lines.push(s.status === 'ineligible' ? 'Kondens hesabı bu koşulda uygun değildir; tesisteki diğer sistemler için uzman incelemesi planlayın.' : 'Teknik uygunluğu ve ölçümleri sahada doğrulatın. Tekliflerle maliyetleri güncelleyin. Uygulama sonrası aynı kapsamda tüketim ve üretim ölçerek etkiyi karşılaştırın.');
   const factors = s.before?.emissionFactors || b.emissionFactors;
   lines.push('', factors ? 'Emisyon katsayıları (kaynak ve varsayımlar):\n' + JSON.stringify(factors, null, 2)
     : 'Emisyon katsayısı seçilmedi; CO2 sonucu hesaplanmadı.', '',

@@ -1,6 +1,6 @@
 {
   "project": "IsıMercek",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "date": "2026-10-25",
   "files": [
     {
@@ -20,13 +20,13 @@
     },
     {
       "path": "KONTROL_NOTU.md",
-      "bytes": 8084,
-      "sha256": "392c1471b65edb20dc9cc33892e34cfbb51bf181b0fcf32c424f417ff3505b1c"
+      "bytes": 9012,
+      "sha256": "8ddadbaac3dc941a71719b217b76f05f27d10ca4bba57c872aaa95a2ae7d37f6"
     },
     {
       "path": "README_TR.md",
-      "bytes": 5545,
-      "sha256": "9b0de4b26a3d98197f53feee932effe7a4b9f40e634e8a27e169c7ece1e4d77e"
+      "bytes": 6218,
+      "sha256": "4f6d671d92f2128e96da944497374bcd8bf13a937b797a0fd99722f48494fcc3"
     },
     {
       "path": "api/extract.js",
@@ -40,13 +40,13 @@
     },
     {
       "path": "docs/Gosterim_Rehberi.md",
-      "bytes": 2249,
-      "sha256": "6ba26adc1639c56617c16117b754b64ad0111be7a2c43db32038c94246931da2"
+      "bytes": 2510,
+      "sha256": "a94441b7468e6493116345321863a734429a90bb9bd824e5623b49aa58923f50"
     },
     {
       "path": "docs/IsiMercek_Final_PDR.pdf",
-      "bytes": 220951,
-      "sha256": "682b2c72addf158bc084e6d1338ceb25d1015f8dd14d17524cbde8c25c96b174"
+      "bytes": 221853,
+      "sha256": "b5528d7ab877c10e0d350ece5c361db40ebc1ac64f380a8cdbd38678e8af87fc"
     },
     {
       "path": "docs/IsiMercek_Final_Problem_Tanimi.pdf",
@@ -55,8 +55,8 @@
     },
     {
       "path": "lib/extract-core.mjs",
-      "bytes": 34988,
-      "sha256": "a8129ba12c402b1495b434be926eb4870d5dd6e5f21c31b424ff881e915b63d7"
+      "bytes": 35261,
+      "sha256": "5a5bcc9ddbb5224c71b7f8a71a67ee555e8bb75155c3828b3372abb1a23010f4"
     },
     {
       "path": "ml/README_TR.md",
@@ -106,12 +106,12 @@
     {
       "path": "package.json",
       "bytes": 379,
-      "sha256": "8a1e0167f3485f13b7a6b0d428a503fc6ff892fe0861013a01d4a0752c8b8145"
+      "sha256": "0fb8649d30a957516fecb2ec7b75d4809750d97a2eef034b9e39449f0b42bc0c"
     },
     {
       "path": "public/app.js",
-      "bytes": 44302,
-      "sha256": "68ad0b3e53fe0281f29ea70abba1b662830205cbf01660aa04df1433d738a8a8"
+      "bytes": 47681,
+      "sha256": "70fb89033ca1686bed56e209531d7f01e6c8b9b8b0a39ec25f19109c81973e12"
     },
     {
       "path": "public/core.mjs",
@@ -120,8 +120,8 @@
     },
     {
       "path": "public/extraction.mjs",
-      "bytes": 4065,
-      "sha256": "e3933c76ae7e585ba4d8a44d6f3d79847391ffcebd6e1154f812bff8075be7af"
+      "bytes": 4161,
+      "sha256": "ae7b6b96a8c8639a06ebcb09a44c97dccf5090f8373700c30a7ed126988732f7"
     },
     {
       "path": "public/fixtures.mjs",
@@ -135,18 +135,23 @@
     },
     {
       "path": "public/helpers.mjs",
-      "bytes": 6652,
-      "sha256": "abca8d2791ec40f327cdbde154a0984481d6c0ff4e86045fc9341cd103be764a"
+      "bytes": 7175,
+      "sha256": "f8a0daa26f4465babc8cd63121edd94e1b9c6484c1ecbd67881d6b0bce690ac3"
     },
     {
       "path": "public/index.html",
-      "bytes": 20171,
-      "sha256": "b8cd28c392b4a0ae8d32c39752b3b3afe3e940a86c586ba0543ae6c3dad51035"
+      "bytes": 20517,
+      "sha256": "eebb9e359a8ee8120b9aa8c5b1c76b611573c644303690312e209c4ca5408b32"
     },
     {
       "path": "public/model.json",
       "bytes": 5968,
       "sha256": "507c14e3999b7c0edbfaf2b3fd093c40317d9393a95fddf697348691b1332b9f"
+    },
+    {
+      "path": "public/plan.mjs",
+      "bytes": 14241,
+      "sha256": "a7a8bef328647291bc5c8ed3b72ff854b36ce1b4848f9df093f0ebf4a96f4247"
     },
     {
       "path": "public/ranker.mjs",
@@ -155,8 +160,8 @@
     },
     {
       "path": "public/styles.css",
-      "bytes": 34983,
-      "sha256": "55223a08e0e561b76a2621f8b36bc6e880b8716ae8bbdee47cfea328185972a4"
+      "bytes": 36701,
+      "sha256": "460d87ddef0c73576cad24e35a44498198692f304ac4390bdc6e097610f4cdc8"
     },
     {
       "path": "server.mjs",
@@ -187,6 +192,11 @@
       "path": "tests/parity_cases.json",
       "bytes": 5714,
       "sha256": "b00cdc1561682a107c522e6492a726c6588d7248045b8c3875e8606d80444824"
+    },
+    {
+      "path": "tests/plan.test.mjs",
+      "bytes": 6156,
+      "sha256": "bf42d7546805bb478bbd39ff10a101603543a3238385aabd4cea3b40ea5063ff"
     },
     {
       "path": "tests/ranker.test.mjs",

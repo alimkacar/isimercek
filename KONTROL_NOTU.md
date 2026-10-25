@@ -1,5 +1,11 @@
 # Kabul kontrolü
 
+## 25 Ekim 2026 — tesise özel uygulama planı (sürüm 0.7.0)
+
+`npm test` → **59 test, 59 başarılı**. Yeni 7 test: Turgutlu ≈ 788,3 TEP ve 1.000 TEP altı durumu; karar eşikleri (674,7 kg/saat; 72,9 kg/saat; 60,5 °C; 693.202 TL; 12,48 TL/Sm³; %18,61 gaz zammında 8,1 ay); eşik değerleri motora geri konduğunda geri ödemenin tam 15,0 ay çıkması; işletmenin 18 ay beyanıyla eşiklerin değişmesi (574,4 kg/saat; 831.842 TL); 6 ay sınırında destek, 2,5 milyon TL yatırımda erteleme kararı; önlem ailelerine tesisin sayılarıyla yazılan sonraki adımlar; metin raporunda plan; belgedeki geri ödeme beyanının ay/yıl dönüşümüyle okunması.
+
+Tarayıcı kontrolü (taklit Gemini yanıtıyla): yükümlülük paneli, 5 inceleme alanında tesise özel adımlar, Senaryo'da uygulama planı (4 eşik kartı + 6 adım), raporda plan ve durum. Konsol hatası yok; 390 piksel genişlikte taşma yok.
+
 ## 25 Ekim 2026 — Gemini belge okuma adımı (sürüm 0.6.0)
 
 Otomatik kontrol: `npm test` → **52 test, 52 başarılı, 0 başarısız** (önceki 35 + 17 yeni).
