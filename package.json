@@ -1,0 +1,12 @@
+{
+  "name": "isimercek",
+  "version": "0.6.0",
+  "private": true,
+  "type": "module",
+  "description": "IsıMercek: gıda ve içecek KOBİ'leri için Gemini destekli belge okuma, deneysel ITAC sıralaması ve kondens geri kazanımı ön incelemesi",
+  "scripts": {
+    "start": "node server.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "engines": { "node": ">=20" }
+}

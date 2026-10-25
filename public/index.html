@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IsıMercek · Enerji fırsatlarını görün</title>
+  <meta name="description" content="Tesisinizin enerji kullanımını görün, fırsatları inceleyin ve bir geri kazanım senaryosu hesaplayın.">
+  <link rel="stylesheet" href="./styles.css"><script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">İçeriğe geç</a>
+  <header class="site-header">
+    <a class="brand" href="#analiz" aria-label="IsıMercek ana sayfa"><span class="heat-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>IsıMercek<span class="brand-dot">.</span></span></a>
+    <div class="header-note"><span class="live-dot"></span> Hesaplar tarayıcınızda çalışır</div>
+  </header>
+  <div class="shell">
+    <nav class="step-nav" aria-label="Ana gezinme">
+      <button class="nav-item active" data-view="analiz" aria-current="page"><span class="step-number">1</span><span>Tesis</span></button>
+      <span class="step-line" aria-hidden="true"></span>
+      <button class="nav-item" data-view="senaryo"><span class="step-number">2</span><span>Senaryo</span></button>
+      <span class="step-line" aria-hidden="true"></span>
+      <button class="nav-item" data-view="rapor"><span class="step-number">3</span><span>Rapor</span></button>
+    </nav>
+    <main id="main" tabindex="-1">
+      <div class="page-heading">
+        <div><p class="eyebrow" id="current-view-label">Tesis analizi</p><h1 id="page-title">Enerji fırsatlarını görün.</h1><p id="page-description">Tesisinizin enerjisini anlayın. İyileştirmeye nereden başlayacağınızı keşfedin.</p></div>
+        <button class="button primary" id="calculate" type="button">Analizi güncelle <span aria-hidden="true">↗</span></button>
+      </div>
+      <div class="context-bar">
+        <div class="sample-bar">
+          <details class="sample-menu" id="sample-menu"><summary>Bir örnekle dene <span aria-hidden="true">⌄</span></summary><div class="sample-options"><button type="button" class="sample-button active" id="load-turgutlu"><strong>Tam verili örnek</strong><span>Turgutlu · kondens hesabını görün</span></button><button type="button" class="sample-button" id="load-eksik"><strong>Ölçümler eksikse?</strong><span>Turgutlu · ölçüm listesini görün</span></button><button type="button" class="sample-button" id="load-menemen"><strong>Buhar sistemi yoksa?</strong><span>Menemen · hesabın sınırını görün</span></button></div></details>
+          <button type="button" class="text-button" id="load-blank"><span aria-hidden="true">＋</span> Kendi tesisim</button>
+        </div>
+        <span id="data-badge" class="tag amber">DEMO VERİ</span>
+      </div>
+      <p id="demo-notice" class="demo-notice"><span aria-hidden="true">◌</span> Temsili bir tesisle çalışıyorsunuz. Veriler, fiyatlar ve katsayılar örnektir.</p>
+      <div id="status" class="status-message" role="status" aria-live="polite">Model yükleniyor…</div>
+      <div id="error-box" class="notice error" role="alert" hidden></div>
+      <section id="tour" class="tour panel" aria-label="Açıklamalı örnek" hidden></section>
+
+      <section id="view-analiz" class="view" aria-labelledby="analysis-heading">
+        <section id="start-card" class="start-card panel" aria-labelledby="start-title">
+          <div><p class="eyebrow">İLK KEZ Mİ KULLANIYORSUNUZ?</p><h2 id="start-title">Bir örnek, üç anlaşılır adım.</h2><p>Bir konserve tesisinin verilerinden başlayın. Sıcak suyun geri kazanımını inceleyin, sonucun ne anlama geldiğini görün.</p><div class="button-row"><button class="button primary" id="start-tour" type="button">Açıklamalı örneği aç <span aria-hidden="true">→</span></button><button class="button secondary" id="start-extract" type="button">Belgeden doldurmayı dene</button><button class="button secondary" id="start-own" type="button">Kendi verimle başlayacağım</button></div><p class="start-caption">Hazır örnek, formu temsili verilerle yeniden doldurur. Belgeden doldurma, temsili bir enerji dosyasını Gemini ile okur.</p></div>
+          <ol class="start-steps"><li><span>01</span><div><strong>Veriyi tanıyın</strong><small>Hangi bilgi, hangi kaynaktan?</small></div></li><li><span>02</span><div><strong>Bir fırsatı hesaplayın</strong><small>Hangi koşulla, ne kadar etki?</small></div></li><li><span>03</span><div><strong>Sonraki adımı görün</strong><small>Neyi doğrulamalı, neyi paylaşmalı?</small></div></li></ol>
+        </section>
+        <section id="extract-panel" class="extract-panel panel" aria-labelledby="extract-title">
+          <div class="panel-heading"><div><p class="eyebrow">BELGEDEN DOLDUR · GEMINI</p><h2 id="extract-title">Faturadan ve saha notundan alanları çıkarın.</h2><p>Gemini yalnız belgede yazanı okur ve her değerin kaynak satırını gösterir. Aylık toplamı ve birim dönüşümünü IsıMercek yapar; hiçbir değer siz onaylamadan forma girmez.</p></div><span class="tag green">AI · onayınızla</span></div>
+          <label class="field">Belge metni veya saha notu<textarea id="extract-text" rows="6" maxlength="20000" spellcheck="false" placeholder="Fatura satırlarını, yıllık tüketim dökümünü veya saha görüşmesi notunu buraya yapıştırın…"></textarea></label>
+          <div class="extract-actions"><label class="button secondary file-button">PDF veya görsel ekle<input id="extract-file" type="file" accept="application/pdf,image/png,image/jpeg,image/webp"></label><span id="extract-file-name" class="extract-file-name"></span><span class="extract-spacer"></span><button class="button secondary" id="extract-sample" type="button">Temsili belgeyi yükle</button><button class="button primary" id="extract-run" type="button">Gemini ile alanları çıkar <span aria-hidden="true">↗</span></button></div>
+          <p class="field-help">Gönderdiğiniz metin veya dosya yalnız bu çıkarım için Google Gemini API’ye iletilir; IsıMercek sunucusu saklamaz. Gerçek belgelerde kişisel ve ticari bilgileri karartın. Dosya en fazla 3 MB olabilir.</p>
+          <div id="extract-status" class="extract-status" role="status" aria-live="polite"></div>
+          <div id="extract-results" class="extract-results" hidden></div>
+        </section>
+        <section id="preparation-plan" class="preparation panel" aria-label="Bilgi hazırlama rehberi"></section>
+        <details id="profile-editor" class="profile-editor panel">
+          <summary class="profile-summary"><div class="facility-symbol" aria-hidden="true">⌂</div><div class="profile-summary-copy"><h2 id="analysis-heading"><span id="profile-summary-name">Tesis profili</span></h2><p id="profile-summary-meta">Tüketim, dönem ve ekipman bilgileri</p></div><span class="edit-hint">Tesis bilgilerini düzenle <span aria-hidden="true">＋</span></span></summary>
+          <form id="profile-form" novalidate>
+            <div class="form-intro"><h3>Önce aynı dönemin verileri.</h3><p>Faturanızdaki tüketimleri girin. Bilmediğiniz alanı boş bırakın; doğrulanmış sıfır için 0 yazın.</p><details class="input-help"><summary>Belgelerimi nasıl hazırlamalıyım?</summary><ol><li>Bir dönem seçin. Örneğin bir tam yılın elektrik ve gaz faturalarını bir araya getirin.</li><li>Fatura tutarını değil, kWh ve Sm³ tüketimlerini toplayın. Aynı dönemin üretim tonunu üretim kaydından alın.</li><li>Buhar ve diğer sistemleri bakım sorumlusuna doğrulatın. Bilmediğiniz alanı doldurmak zorunda değilsiniz.</li></ol><p>Değerleri elle girebilir veya yukarıdaki “Belgeden doldur” adımında Gemini’ye okutabilirsiniz. Gemini’nin önerdiği her değeri kaynak alıntısıyla görür, yalnız onayladıklarınızı aktarırsınız; hesap ve eksik bilgi listesi bu girdilere dayanır.</p></details></div>
+            <div class="field-grid columns-3">
+              <label class="field span-2">Tesis adı<input id="facility-name" type="text" maxlength="140" autocomplete="organization" placeholder="Tesisinizin adı"></label>
+              <label class="field">Dönem türü<select id="period-kind"><option value="year">Tam takvim yılı</option><option value="month">Tam takvim ayı</option><option value="custom">Özel dönem</option></select></label>
+              <label class="field">Başlangıç tarihi<input id="period-start" type="date"></label>
+              <label class="field">Bitiş tarihi<input id="period-end" type="date"></label>
+              <label class="field">Üretim miktarı<span class="input-wrap"><input id="production" inputmode="decimal" placeholder="Bilinmiyor"><span>ton</span></span></label>
+              <label class="field">Elektrik tüketimi<span class="input-wrap"><input id="electricity" inputmode="decimal" placeholder="Bilinmiyor"><span>kWh</span></span></label>
+              <label class="field">Doğal gaz tüketimi<span class="input-wrap"><input id="gas" inputmode="decimal" placeholder="Bilinmiyor"><span>Sm³</span></span></label>
+              <label class="field">Gaz alt ısıl değeri<span class="input-wrap"><input id="lhv" inputmode="decimal" placeholder="Bilinmiyor"><span>kWh/Sm³</span></span></label>
+            </div>
+            <p class="field-help">Ondalık için virgül kullanın: 9,59. Nokta binlik ayracı olarak kullanılabilir: 1.350.000.</p>
+            <details class="form-section"><summary>Ekipman ve sektör <span aria-hidden="true">＋</span></summary><p class="field-help">Hangi alanların incelenebileceği, tesisinizdeki sistemlere bağlıdır.</p><div class="field-grid columns-2">
+              <label class="field">Buhar sistemi<select id="steam"><option value="unknown">Bilinmiyor</option><option value="present">Var</option><option value="absent">Yok</option></select></label>
+              <label class="field">Soğutma sistemi<select id="cooling"><option value="unknown">Bilinmiyor</option><option value="present">Var</option><option value="absent">Yok</option></select></label>
+              <label class="field">Basınçlı hava veya inert gaz sistemi<select id="compressed-air"><option value="unknown">Bilinmiyor</option><option value="present">En az biri var</option><option value="absent">İkisi de yok</option></select></label>
+              <label class="field">NAICS sektör kodu<input id="naics" inputmode="numeric" maxlength="6" placeholder="Örn. 3114"><span class="field-help">ABD sektör sınıflaması; NACE kodu değildir.</span></label>
+            </div></details>
+            <details class="form-section"><summary>Ek bilgiler ve emisyon hesabı <span aria-hidden="true">＋</span></summary><div class="field-grid columns-2">
+              <label class="field">Dönem çalışma süresi<span class="input-wrap"><input id="hours" inputmode="decimal" placeholder="Bilinmiyor"><span>saat</span></span></label>
+              <label class="field">Çalışan sayısı<input id="employees" inputmode="numeric" placeholder="Bilinmiyor"></label>
+            </div><label class="check-field"><input type="checkbox" id="demo-factors"><span>Demo emisyon katsayılarını kullan<small>Elektrik: 0,474 ve gaz: 0,20196 tCO₂/MWh. Gerçek raporlama için uygun katsayılar ayrıca doğrulanmalıdır.</small></span></label></details>
+            <label class="check-field"><input type="checkbox" id="annual-confirmation"><span>Verilerin aynı tam yıla ait olduğunu doğruluyorum.<small>Yıllık demo için hazır onaylıdır. Aylık veri yıllıklaştırılmaz.</small></span></label>
+            <div class="form-actions"><button class="button primary" type="submit">Analizi güncelle <span aria-hidden="true">↗</span></button></div>
+          </form>
+        </details>
+
+        <div class="analysis-results" id="analysis-results">
+          <section class="baseline-section"><div class="section-heading"><h2>Dönemin enerji özeti</h2><span class="small-period" id="baseline-period">—</span></div><div class="metric-grid" id="baseline-metrics"></div></section>
+          <section class="ranking-panel panel"><div class="panel-heading"><div><h2>5 inceleme alanı</h2><p>Bir sonraki saha kontrolünüz için başlangıç noktaları.</p></div><span class="tag amber">Deneysel sıralama</span></div>
+            <div class="model-caution"><span class="caution-dot" aria-hidden="true"></span><p>Model, basit sektör karşılaştırmasını geçmedi. Bu sıra uygunluk veya tasarruf tahmini değildir.</p></div>
+            <div id="ranking-alerts"></div><div id="opportunities" class="opportunity-list"></div>
+            <details class="model-details"><summary>Bu sıralama nasıl oluşuyor? <span aria-hidden="true">＋</span></summary><div class="model-details-body"><p>Gerçek ABD ITAC kayıtlarıyla eğitilmiş küçük model, geçmişte benzer profillere hangi önerilerin verildiğini inceler. Düşük skor hiçbir fırsatı gizlemez.</p><div id="ranking-messages"></div><div class="training-splits"><div><strong>751</strong><span>Eğitim kaydı</span></div><div><strong>151</strong><span>Doğrulama kaydı</span></div><div><strong>179</strong><span>Test kaydı</span></div></div><dl class="model-stats"><div><dt>Model nDCG@3</dt><dd>0,8191</dd></div><div><dt>Basit NAICS karşılaştırması</dt><dd>0,8431</dd></div><div><dt>Performans eşiği</dt><dd>Geçilemedi</dd></div></dl><p>Beş öneri ailesi için 5 ham girdiden türetilen 19 özellikle lojistik regresyon kullanılır. Eğitim dönemi 2002–2018, doğrulama 2019–2022, test 2023–2026’dır.</p><p>Türkiye’de saha doğrulaması yapılmadı. Testte kondens ailesi 8 kaydın hiçbirinde ilk üçe girmedi. Skor, geçmişte önerilme eğilimidir; teknik uygunluk, başarı veya tasarruf olasılığı değildir. Eksik çalışma süresi ve çalışan sayısı yalnız model içinde eğitim medyanıyla işlenir.</p><a href="https://itac.university/download" target="_blank" rel="noopener noreferrer">ITAC veri kaynağı ↗</a></div></details>
+          </section>
+          <div class="next-step" id="scenario-route"></div>
+        </div>
+      </section>
+
+      <section id="view-senaryo" class="view" aria-labelledby="scenario-heading" hidden>
+        <section id="scenario-guidance" class="preparation panel" aria-label="Senaryo için sonraki adımlar"></section>
+        <div class="scenario-results" id="scenario-results"><div class="section-heading"><div><h2 id="scenario-heading">Kondens geri kazanımı</h2><p class="muted">Kondens, buharın soğuyup yeniden suya dönüşmüş hâlidir. Bu sıcak su geri dönerse kazan daha az yakıt kullanabilir.</p></div><span class="tag green" id="scenario-badge">Hesaplanan potansiyel</span></div><div id="scenario-status"></div><div id="scenario-metrics" class="metric-grid"></div>
+          <section class="panel comparison-panel"><div class="panel-heading"><h3>Önce → Sonra</h3><p>Üretim miktarı sabit</p></div><div id="comparison"></div></section>
+        </div>
+        <details id="scenario-editor" class="scenario-editor panel"><summary><div><h3>Senaryoyu düzenle</h3><p>Debi, sıcaklık ve maliyet varsayımları</p></div><span class="edit-hint">Girdileri aç <span aria-hidden="true">＋</span></span></summary>
+          <form id="scenario-form" novalidate>
+            <div class="form-intro"><h3>Sahadaki koşullarla başlayın.</h3><p>Hesap, tek fazlı sıvı kondensin ek geri dönüşünü kapsar. Tüm değerler tesis profiliyle aynı döneme ait olmalı.</p></div>
+            <div class="field-grid columns-2"><label class="field">Geri kullanım uygunluğu<select id="reuse-suitable"><option value="unknown">Henüz doğrulanmadı</option><option value="present">Uygun</option><option value="absent">Uygun değil</option></select><span class="field-help">Buhar varlığı tesis profilinden alınır.</span></label><label class="field">Ek sıvı kondens debisi<span class="input-wrap"><input id="flow" inputmode="decimal" placeholder="Bilinmiyor"><span>kg/saat</span></span></label><label class="field">Kondens dönüş sıcaklığı<span class="input-wrap"><input id="return-temp" inputmode="decimal" placeholder="Bilinmiyor"><span>°C</span></span></label><label class="field">Taze su sıcaklığı<span class="input-wrap"><input id="makeup-temp" inputmode="decimal" placeholder="Bilinmiyor"><span>°C</span></span></label></div>
+            <label class="check-field"><input type="checkbox" id="flow-confirmation"><span>Ek sıvı debisi, tank girişinde ve flash / hat kayıpları sonrasında geçerlidir.</span></label>
+            <details class="form-section"><summary>Çalışma koşulları <span aria-hidden="true">＋</span></summary><div class="field-grid columns-3"><label class="field">Dönem çalışma süresi<span class="input-wrap"><input id="scenario-hours" inputmode="decimal" placeholder="Bilinmiyor"><span>saat</span></span></label><label class="field">Kazan verimi (alt ısıl değer)<span class="input-wrap"><input id="efficiency" inputmode="decimal" placeholder="Bilinmiyor"><span>%</span></span></label><label class="field">Ek elektrik tüketimi<span class="input-wrap"><input id="aux-electricity" inputmode="decimal" placeholder="Bilinmiyor"><span>kWh</span></span></label></div></details>
+            <details class="form-section"><summary>Maliyet ve yatırım <span aria-hidden="true">＋</span></summary><div class="field-grid columns-2"><label class="field">Doğal gaz birim fiyatı<span class="input-wrap"><input id="gas-price" inputmode="decimal" placeholder="Bilinmiyor"><span>TL/Sm³</span></span></label><label class="field">Elektrik birim fiyatı<span class="input-wrap"><input id="electricity-price" inputmode="decimal" placeholder="Bilinmiyor"><span>TL/kWh</span></span></label><label class="field">Ek işletme ve bakım maliyeti<span class="input-wrap"><input id="operating-cost" inputmode="decimal" placeholder="Bilinmiyor"><span>TL</span></span></label><label class="field">Yatırım tutarı<span class="input-wrap"><input id="investment" inputmode="decimal" placeholder="Bilinmiyor"><span>TL</span></span></label></div><p class="field-help">Fiyatlar tarife önerisi değildir. Geri ödeme yalnız yıllık dönem ve pozitif net tasarruf için hesaplanır.</p></details>
+            <div class="form-actions"><button class="button primary" type="submit">Senaryoyu hesapla <span aria-hidden="true">↗</span></button></div>
+          </form>
+        </details>
+        <details class="formula-panel"><summary>Hesabın dayanağı ve sınırları <span aria-hidden="true">＋</span></summary><p>Geri kazanılan ısı = debi × 4,186 × sıcaklık farkı × çalışma süresi / 3.600. Yakıt tasarrufu bu ısının kazan verimine bölünmesiyle bulunur.</p><p>Net enerji için ek elektrik düşülür. Net maliyet etkisi, gaz tasarrufundan ek elektrik ve işletme giderlerinin çıkarılmasıdır. Hesap proses ısı talebindeki azalma olarak yorumlanamaz. Sonuçlar ölçülmüş tasarruf değildir.</p><p>Bu fizik hesabı, deneysel modelin sıralamasından bağımsız çalışır.</p></details>
+        <div class="view-action"><span>Varsayımları ve sonucu birlikte paylaşın.</span><button class="button secondary" data-view="rapor">Rapora geç <span aria-hidden="true">→</span></button></div>
+      </section>
+
+      <section id="view-rapor" class="view" aria-labelledby="report-heading" hidden><div class="report-toolbar"><div><h2 id="report-heading">Ön inceleme raporunuz.</h2><p class="muted">Ne biliyoruz, ne hesapladık, sırada ne var?</p></div><div class="button-row"><button class="button secondary" id="download-json" type="button" disabled>Veri dosyası (JSON)</button><button class="button secondary" id="download-text" type="button" disabled>Metin indir</button><button class="button primary" id="print-report" type="button" disabled>PDF / Yazdır <span aria-hidden="true">↗</span></button></div></div><article id="report-content" class="report-paper"><p>Rapor hazırlanıyor…</p></article></section>
+      <footer class="main-footer"><span>IsıMercek · Enerjiyi daha iyi kullanmak için.</span><span>Araştırma prototipi <span class="footer-dot">·</span> SDG 7.3</span></footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,192 @@
+{
+  "project": "IsıMercek",
+  "version": "0.6.0",
+  "date": "2026-10-25",
+  "files": [
+    {
+      "path": ".env.example",
+      "bytes": 241,
+      "sha256": "f6c3fff32ce21db72c18da3efce35f2385a7b829656e89dc0e7d39fb686dd25a"
+    },
+    {
+      "path": ".gitignore",
+      "bytes": 87,
+      "sha256": "38706db2cc438b9803fec23c7433f8fecc4da1e36d7bb708f46ca6db128ca23f"
+    },
+    {
+      "path": "Baslat.command",
+      "bytes": 554,
+      "sha256": "f86f2664c73549588fb7bff2c96a69edbbac11c415c02f495896756eff80f0ed"
+    },
+    {
+      "path": "KONTROL_NOTU.md",
+      "bytes": 7257,
+      "sha256": "1e3b5fadb1ba223df3fb04bf6f89b0061fcd6f5d8da4323a36de5fcacc1c4575"
+    },
+    {
+      "path": "README_TR.md",
+      "bytes": 4973,
+      "sha256": "d3873536067c225d9f61d4068b06ceb4d9eddae37badf1dcdda92c2d1a8d1f05"
+    },
+    {
+      "path": "api/extract.js",
+      "bytes": 893,
+      "sha256": "c66938d49102e03ce2837fd86e253abe29d811f138d403077a28f78bb0b2a123"
+    },
+    {
+      "path": "docs/Gosterim_Rehberi.md",
+      "bytes": 3510,
+      "sha256": "e593d787a20f7e245e606502a875d2fa3269a5e1628acda891f8513271468fad"
+    },
+    {
+      "path": "lib/extract-core.mjs",
+      "bytes": 32289,
+      "sha256": "d9c8e9567ffedf2cef85b5d9a164ccf6dabf774b3edcea50f3ffcae6a5e34831"
+    },
+    {
+      "path": "ml/README_TR.md",
+      "bytes": 1697,
+      "sha256": "18771151e7cd704d350bfe636df02e0003eb091107da141f7da8876b3de6a6f4"
+    },
+    {
+      "path": "ml/data/food_assessments.json",
+      "bytes": 354074,
+      "sha256": "067921c711d068f7f0ea9f0a2dac4e3de4d11f73e952acfbb28393334dad8cc2"
+    },
+    {
+      "path": "ml/data/provenance.json",
+      "bytes": 1846,
+      "sha256": "53cc78129854abe30193172add8298e0c2f41e49f697f390c662729613a8c8b7"
+    },
+    {
+      "path": "ml/evaluation.json",
+      "bytes": 28585,
+      "sha256": "92126266d46e52d7a7195dfc6a20627bd538b0a228f4a767dd85d53011925353"
+    },
+    {
+      "path": "ml/model_card.md",
+      "bytes": 7364,
+      "sha256": "e7761ef27666600e6305a2007e3ef653497f2c42869d38fab50115966e8e85cd"
+    },
+    {
+      "path": "ml/parity_cases.json",
+      "bytes": 5714,
+      "sha256": "b00cdc1561682a107c522e6492a726c6588d7248045b8c3875e8606d80444824"
+    },
+    {
+      "path": "ml/provenance.json",
+      "bytes": 1846,
+      "sha256": "53cc78129854abe30193172add8298e0c2f41e49f697f390c662729613a8c8b7"
+    },
+    {
+      "path": "ml/splits.json",
+      "bytes": 17542,
+      "sha256": "2344ae7b203da62584ac5d85965d8a4f968a116096fe6223767a7aa6fc9669b9"
+    },
+    {
+      "path": "ml/train.py",
+      "bytes": 25535,
+      "sha256": "b8c5e3fe0fae7653b02addbcf00972784e66c0908bba8c090d3e4fbaabd1c3f1"
+    },
+    {
+      "path": "package.json",
+      "bytes": 379,
+      "sha256": "8a1e0167f3485f13b7a6b0d428a503fc6ff892fe0861013a01d4a0752c8b8145"
+    },
+    {
+      "path": "public/app.js",
+      "bytes": 44388,
+      "sha256": "526e0072a6741b12a70b2338cc4f22784c5fc2c45dc68faec382056115e7415f"
+    },
+    {
+      "path": "public/core.mjs",
+      "bytes": 14266,
+      "sha256": "7026150a17b859d4b3f899c90cfd81f6cb9e413266ef8fb26da2337d80129fd6"
+    },
+    {
+      "path": "public/extraction.mjs",
+      "bytes": 4065,
+      "sha256": "e3933c76ae7e585ba4d8a44d6f3d79847391ffcebd6e1154f812bff8075be7af"
+    },
+    {
+      "path": "public/fixtures.mjs",
+      "bytes": 2420,
+      "sha256": "935f32a5b4475546267074dae05abffac18328cd4552432fae851520fc86f297"
+    },
+    {
+      "path": "public/guidance.mjs",
+      "bytes": 5697,
+      "sha256": "3a6d0a8cc9635c19d9168b2c9b7d7b7c5c22b1ef2e18ae80b7d2d03c622c3912"
+    },
+    {
+      "path": "public/helpers.mjs",
+      "bytes": 6652,
+      "sha256": "abca8d2791ec40f327cdbde154a0984481d6c0ff4e86045fc9341cd103be764a"
+    },
+    {
+      "path": "public/index.html",
+      "bytes": 20292,
+      "sha256": "339aeecdfaf58621c7c6cc237c6d46f817a835a97d3f2a196d9443a4d7be4cb5"
+    },
+    {
+      "path": "public/model.json",
+      "bytes": 5968,
+      "sha256": "507c14e3999b7c0edbfaf2b3fd093c40317d9393a95fddf697348691b1332b9f"
+    },
+    {
+      "path": "public/ranker.mjs",
+      "bytes": 10962,
+      "sha256": "36a232cf206f549639f3803af802c92d66362e8df748baede506a1cdb90460a2"
+    },
+    {
+      "path": "public/styles.css",
+      "bytes": 34571,
+      "sha256": "ae8d8a7d86d6f1b363fa121cfdb0b393bb00487dc96a252f5d992216340c8df1"
+    },
+    {
+      "path": "server.mjs",
+      "bytes": 4370,
+      "sha256": "32ae7cd3439a09111361be55b0d88ff355d52dd0f13c138decc8666c501a83e1"
+    },
+    {
+      "path": "tests/core.test.mjs",
+      "bytes": 9286,
+      "sha256": "3ada4cb4061f37d6d971fb5c69a51022b5ee348b62baae6cda95c7d095970be2"
+    },
+    {
+      "path": "tests/extract.test.mjs",
+      "bytes": 14822,
+      "sha256": "c7b36e8f1041316a0db6dfbef5472135a91951cc5614174c99f21795548cc677"
+    },
+    {
+      "path": "tests/guidance.test.mjs",
+      "bytes": 2509,
+      "sha256": "69cc76140515e4185449546aa2c40ddfca1d5173c51c110fa362a5c80b24545b"
+    },
+    {
+      "path": "tests/helpers.test.mjs",
+      "bytes": 1813,
+      "sha256": "cd60cc57495717e17cc8fdc8738445444cf26fd82f777de4280a4b735108eda1"
+    },
+    {
+      "path": "tests/parity_cases.json",
+      "bytes": 5714,
+      "sha256": "b00cdc1561682a107c522e6492a726c6588d7248045b8c3875e8606d80444824"
+    },
+    {
+      "path": "tests/ranker.test.mjs",
+      "bytes": 7052,
+      "sha256": "8e53f2b98e4cd496fb59235ed6d6909cb10e473145c7d63525baa658f5ae762b"
+    },
+    {
+      "path": "tests/server.test.mjs",
+      "bytes": 2420,
+      "sha256": "e1f9692f4c5f8791a8f279cd1ae06aba037b81d966e564d3f6642d9c0ea83339"
+    },
+    {
+      "path": "vercel.json",
+      "bytes": 617,
+      "sha256": "e0df2d09ecce032724cedcb848bc41b3cbcf356ffebeeb09a9cae4f925361d07"
+    }
+  ]
+}

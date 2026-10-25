@@ -1,0 +1,276 @@
+{
+  "absoluteTolerance": 1e-10,
+  "cases": [
+    {
+      "name": "parity_1",
+      "input": {
+        "naics": "311991",
+        "electricityKWh": 3794897.0,
+        "annualHours": 8760.0,
+        "employees": 145.0,
+        "gasPresent": true
+      },
+      "features": [
+        -0.33361685951632297,
+        0.0,
+        1.0258165727757453,
+        0.0,
+        0.05954674986361453,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0
+      ],
+      "scores": {
+        "compressed_air": 0.7362530087036387,
+        "steam_traps": 0.20666108158792806,
+        "steam_insulation": 0.22790365029356327,
+        "condensate": 0.06258714135622949,
+        "cooling": 0.234523135599762
+      },
+      "ranking": [
+        "compressed_air",
+        "cooling",
+        "steam_insulation",
+        "steam_traps",
+        "condensate"
+      ]
+    },
+    {
+      "name": "parity_2",
+      "input": {
+        "naics": "311812",
+        "electricityKWh": 2277457.0,
+        "annualHours": 4780.0,
+        "employees": 63.0,
+        "gasPresent": true
+      },
+      "features": [
+        -0.7275242206070502,
+        0.0,
+        -0.3654516687690378,
+        0.0,
+        -0.8127102535945782,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scores": {
+        "compressed_air": 0.7240454674483016,
+        "steam_traps": 0.19838343003779155,
+        "steam_insulation": 0.2319106333602939,
+        "condensate": 0.06348836870019187,
+        "cooling": 0.23413058189044791
+      },
+      "ranking": [
+        "compressed_air",
+        "cooling",
+        "steam_insulation",
+        "steam_traps",
+        "condensate"
+      ]
+    },
+    {
+      "name": "parity_3",
+      "input": {
+        "naics": "312140",
+        "electricityKWh": 223669.0,
+        "annualHours": 1728.0,
+        "employees": 20.0,
+        "gasPresent": true
+      },
+      "features": [
+        -2.517815613545611,
+        0.0,
+        -2.7018569894918576,
+        0.0,
+        -1.991297783035843,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scores": {
+        "compressed_air": 0.7009905462100214,
+        "steam_traps": 0.18070086863492538,
+        "steam_insulation": 0.23279206616324988,
+        "condensate": 0.06476082174270491,
+        "cooling": 0.2408280571976773
+      },
+      "ranking": [
+        "compressed_air",
+        "cooling",
+        "steam_insulation",
+        "steam_traps",
+        "condensate"
+      ]
+    },
+    {
+      "name": "parity_4",
+      "input": {
+        "naics": "311511",
+        "electricityKWh": 1200000,
+        "annualHours": null,
+        "employees": null,
+        "gasPresent": null
+      },
+      "features": [
+        -1.221829742374154,
+        0.0,
+        0.2467067106458675,
+        1.0,
+        0.022691605033838987,
+        1.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "scores": {
+        "compressed_air": 0.7235131139677975,
+        "steam_traps": 0.19896210184646,
+        "steam_insulation": 0.22663378832969072,
+        "condensate": 0.06318701065687884,
+        "cooling": 0.2411989826179211
+      },
+      "ranking": [
+        "compressed_air",
+        "cooling",
+        "steam_insulation",
+        "steam_traps",
+        "condensate"
+      ]
+    },
+    {
+      "name": "parity_5",
+      "input": {
+        "naics": "999999",
+        "electricityKWh": 100000,
+        "annualHours": 9000,
+        "employees": -3,
+        "gasPresent": false
+      },
+      "features": [
+        -3.138837114871325,
+        0.0,
+        0.2467067106458675,
+        1.0,
+        0.022691605033838987,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ],
+      "scores": {
+        "compressed_air": 0.7156123180555151,
+        "steam_traps": 0.1879308950177571,
+        "steam_insulation": 0.2289588646010616,
+        "condensate": 0.06259435943126825,
+        "cooling": 0.24617526909336568
+      },
+      "ranking": [
+        "compressed_air",
+        "cooling",
+        "steam_insulation",
+        "steam_traps",
+        "condensate"
+      ]
+    },
+    {
+      "name": "parity_6",
+      "input": {
+        "naics": "312111",
+        "electricityKWh": 0,
+        "annualHours": 0,
+        "employees": 0,
+        "gasPresent": true
+      },
+      "features": [
+        -12.02064504248536,
+        0.0,
+        -19.827495904017436,
+        0.0,
+        -5.211293205753081,
+        0.0,
+        1.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      "scores": {
+        "compressed_air": 0.5756151601227947,
+        "steam_traps": 0.10251951170237651,
+        "steam_insulation": 0.2246091719901167,
+        "condensate": 0.08091366546115428,
+        "cooling": 0.2560319768739901
+      },
+      "ranking": [
+        "compressed_air",
+        "cooling",
+        "steam_insulation",
+        "steam_traps",
+        "condensate"
+      ]
+    }
+  ],
+  "note": "Preprocessing parity fixtures include invalid/OOD inputs; public application should gate them before presenting results."
+}

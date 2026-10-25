@@ -1,0 +1,60 @@
+{
+  "source_url": "https://itac.university/download",
+  "archive_url": "https://itac.university/storage/ITAC_Database.zip",
+  "workbook": "ITAC_Database_20261007.xlsx",
+  "archive_sha256": "ca56531e6a42f649ed40a2634bc3bf49d2ad274f555783718eb8e562d17639ba",
+  "workbook_sha256": "c00fb0fa0a7463e06679836d6fe52cb1aaebb3046225b9b388f963d34fc0770f",
+  "integrity": "Both ZIP layers passed CRC; the historical .partial suffix was misleading.",
+  "counts": {
+    "assessment_rows": 22981,
+    "food_assessments": 1600,
+    "recommendation_rows": 170494,
+    "food_recommendations": 12516,
+    "model_assessments": 1081,
+    "model_recommendations": 1635
+  },
+  "year_counts": {
+    "2002": 1,
+    "2003": 50,
+    "2004": 78,
+    "2005": 69,
+    "2006": 60,
+    "2007": 31,
+    "2008": 38,
+    "2009": 30,
+    "2010": 45,
+    "2011": 39,
+    "2012": 43,
+    "2013": 36,
+    "2014": 50,
+    "2015": 52,
+    "2016": 44,
+    "2017": 43,
+    "2018": 42,
+    "2019": 47,
+    "2020": 24,
+    "2021": 41,
+    "2022": 39,
+    "2023": 53,
+    "2024": 55,
+    "2025": 36,
+    "2026": 35
+  },
+  "family_assessment_counts": {
+    "compressed_air": 805,
+    "steam_traps": 204,
+    "steam_insulation": 199,
+    "condensate": 61,
+    "cooling": 245
+  },
+  "scope": "NAICS 311* and 3121*, FY >= 2000, positive annual electricity and at least one of five selected recommendation families.",
+  "target": "Recorded recommendation-family distribution, not suitability or measured savings.",
+  "units": {
+    "electricityKWh": "kWh/year",
+    "annualHours": "hours/year",
+    "employees": "persons",
+    "gasPresent": "positive gas usage indicator; no LHV/HHV conversion"
+  },
+  "missing_labels": "Not recorded does not imply unsuitable; use conditional recommendation ranking only.",
+  "arc_reference": "https://itac.university/file/technical/ARC%20List%20-%20V21.1.pdf"
+}

@@ -1,0 +1,888 @@
+{
+  "schema_version": 1,
+  "seed": 271828,
+  "population": "US ITAC food/beverage assessments with positive annual electricity, FY>=2000, and at least one recorded recommendation in five selected families.",
+  "dataset_sha256": "067921c711d068f7f0ea9f0a2dac4e3de4d11f73e952acfbb28393334dad8cc2",
+  "split": {
+    "train": {
+      "count": 751,
+      "years": [
+        2002,
+        2018
+      ],
+      "label_counts": {
+        "compressed_air": 550,
+        "steam_traps": 155,
+        "steam_insulation": 172,
+        "condensate": 48,
+        "cooling": 176
+      }
+    },
+    "validation": {
+      "count": 151,
+      "years": [
+        2019,
+        2022
+      ],
+      "label_counts": {
+        "steam_traps": 19,
+        "compressed_air": 119,
+        "steam_insulation": 12,
+        "cooling": 28,
+        "condensate": 5
+      }
+    },
+    "test": {
+      "count": 179,
+      "years": [
+        2023,
+        2026
+      ],
+      "label_counts": {
+        "compressed_air": 136,
+        "steam_insulation": 15,
+        "cooling": 41,
+        "condensate": 8,
+        "steam_traps": 30
+      }
+    }
+  },
+  "selection": {
+    "primary": "validation nDCG@3",
+    "tie_break": "validation recall@3, then stronger L2",
+    "selected_l2": 1.0,
+    "logistic_candidates": [
+      {
+        "l2": 0.0001,
+        "validation": {
+          "recall_at_3": 0.88962472406181,
+          "ndcg_at_3": 0.8380250459146406,
+          "precision_at_3": 0.35320088300220753,
+          "micro_recall_at_3": 0.8743169398907104,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 10,
+              "recall_at_3": 0.5263157894736842,
+              "ranked_top3_records": 71,
+              "recorded_label_precision_at_3": 0.14084507042253522
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 12,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 117,
+              "recorded_label_precision_at_3": 0.10256410256410256
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 19,
+              "recall_at_3": 0.6785714285714286,
+              "ranked_top3_records": 114,
+              "recorded_label_precision_at_3": 0.16666666666666666
+            }
+          }
+        },
+        "optimization": [
+          {
+            "label": "compressed_air",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 5.974307895562155e-12
+          },
+          {
+            "label": "steam_traps",
+            "iterations": 7,
+            "converged": true,
+            "max_abs_gradient": 7.236030080248063e-13
+          },
+          {
+            "label": "steam_insulation",
+            "iterations": 6,
+            "converged": true,
+            "max_abs_gradient": 8.594988901691957e-16
+          },
+          {
+            "label": "condensate",
+            "iterations": 7,
+            "converged": true,
+            "max_abs_gradient": 2.85972601230932e-10
+          },
+          {
+            "label": "cooling",
+            "iterations": 6,
+            "converged": true,
+            "max_abs_gradient": 2.7950732006676304e-16
+          }
+        ]
+      },
+      {
+        "l2": 0.001,
+        "validation": {
+          "recall_at_3": 0.88962472406181,
+          "ndcg_at_3": 0.8385566963176327,
+          "precision_at_3": 0.35320088300220753,
+          "micro_recall_at_3": 0.8743169398907104,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 10,
+              "recall_at_3": 0.5263157894736842,
+              "ranked_top3_records": 71,
+              "recorded_label_precision_at_3": 0.14084507042253522
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 12,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 118,
+              "recorded_label_precision_at_3": 0.1016949152542373
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 19,
+              "recall_at_3": 0.6785714285714286,
+              "ranked_top3_records": 113,
+              "recorded_label_precision_at_3": 0.168141592920354
+            }
+          }
+        },
+        "optimization": [
+          {
+            "label": "compressed_air",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 1.2042351137580492e-12
+          },
+          {
+            "label": "steam_traps",
+            "iterations": 6,
+            "converged": true,
+            "max_abs_gradient": 5.041092561879872e-16
+          },
+          {
+            "label": "steam_insulation",
+            "iterations": 6,
+            "converged": true,
+            "max_abs_gradient": 7.101524229780054e-17
+          },
+          {
+            "label": "condensate",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 2.27200254812078e-10
+          },
+          {
+            "label": "cooling",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 9.266668805280878e-11
+          }
+        ]
+      },
+      {
+        "l2": 0.01,
+        "validation": {
+          "recall_at_3": 0.88962472406181,
+          "ndcg_at_3": 0.8383604799723866,
+          "precision_at_3": 0.35320088300220753,
+          "micro_recall_at_3": 0.8743169398907104,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 10,
+              "recall_at_3": 0.5263157894736842,
+              "ranked_top3_records": 64,
+              "recorded_label_precision_at_3": 0.15625
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 12,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 127,
+              "recorded_label_precision_at_3": 0.09448818897637795
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 19,
+              "recall_at_3": 0.6785714285714286,
+              "ranked_top3_records": 111,
+              "recorded_label_precision_at_3": 0.17117117117117117
+            }
+          }
+        },
+        "optimization": [
+          {
+            "label": "compressed_air",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 3.0157855795410376e-16
+          },
+          {
+            "label": "steam_traps",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 1.6140652950897785e-12
+          },
+          {
+            "label": "steam_insulation",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 2.721249767910921e-13
+          },
+          {
+            "label": "condensate",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 2.8993109996156008e-12
+          },
+          {
+            "label": "cooling",
+            "iterations": 5,
+            "converged": true,
+            "max_abs_gradient": 1.4546730442492064e-16
+          }
+        ]
+      },
+      {
+        "l2": 0.1,
+        "validation": {
+          "recall_at_3": 0.88962472406181,
+          "ndcg_at_3": 0.84084396805125,
+          "precision_at_3": 0.3554083885209713,
+          "micro_recall_at_3": 0.8797814207650273,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 8,
+              "recall_at_3": 0.42105263157894735,
+              "ranked_top3_records": 45,
+              "recorded_label_precision_at_3": 0.17777777777777778
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 11,
+              "recall_at_3": 0.9166666666666666,
+              "ranked_top3_records": 124,
+              "recorded_label_precision_at_3": 0.08870967741935484
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 23,
+              "recall_at_3": 0.8214285714285714,
+              "ranked_top3_records": 133,
+              "recorded_label_precision_at_3": 0.17293233082706766
+            }
+          }
+        },
+        "optimization": [
+          {
+            "label": "compressed_air",
+            "iterations": 4,
+            "converged": true,
+            "max_abs_gradient": 8.185182669245713e-12
+          },
+          {
+            "label": "steam_traps",
+            "iterations": 4,
+            "converged": true,
+            "max_abs_gradient": 6.174846120532429e-10
+          },
+          {
+            "label": "steam_insulation",
+            "iterations": 4,
+            "converged": true,
+            "max_abs_gradient": 1.9411180755681642e-12
+          },
+          {
+            "label": "condensate",
+            "iterations": 4,
+            "converged": true,
+            "max_abs_gradient": 5.384749070247441e-11
+          },
+          {
+            "label": "cooling",
+            "iterations": 4,
+            "converged": true,
+            "max_abs_gradient": 1.6157613441647456e-12
+          }
+        ]
+      },
+      {
+        "l2": 1.0,
+        "validation": {
+          "recall_at_3": 0.8863134657836643,
+          "ndcg_at_3": 0.8428066867708763,
+          "precision_at_3": 0.3509933774834437,
+          "micro_recall_at_3": 0.8688524590163934,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 12,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.07947019867549669
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 28,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.18543046357615894
+            }
+          }
+        },
+        "optimization": [
+          {
+            "label": "compressed_air",
+            "iterations": 4,
+            "converged": true,
+            "max_abs_gradient": 5.534853534216493e-16
+          },
+          {
+            "label": "steam_traps",
+            "iterations": 4,
+            "converged": true,
+            "max_abs_gradient": 2.9560611984560094e-15
+          },
+          {
+            "label": "steam_insulation",
+            "iterations": 3,
+            "converged": true,
+            "max_abs_gradient": 9.594670422862249e-10
+          },
+          {
+            "label": "condensate",
+            "iterations": 3,
+            "converged": true,
+            "max_abs_gradient": 7.57368595416796e-10
+          },
+          {
+            "label": "cooling",
+            "iterations": 3,
+            "converged": true,
+            "max_abs_gradient": 3.96836387688956e-10
+          }
+        ]
+      }
+    ],
+    "naics_baseline_candidates": [
+      {
+        "smoothing": 0,
+        "validation": {
+          "recall_at_3": 0.8763796909492273,
+          "ndcg_at_3": 0.835277771492391,
+          "precision_at_3": 0.3487858719646799,
+          "micro_recall_at_3": 0.8633879781420765,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 10,
+              "recall_at_3": 0.5263157894736842,
+              "ranked_top3_records": 80,
+              "recorded_label_precision_at_3": 0.125
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 11,
+              "recall_at_3": 0.9166666666666666,
+              "ranked_top3_records": 122,
+              "recorded_label_precision_at_3": 0.09016393442622951
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 18,
+              "recall_at_3": 0.6428571428571429,
+              "ranked_top3_records": 100,
+              "recorded_label_precision_at_3": 0.18
+            }
+          }
+        }
+      },
+      {
+        "smoothing": 5,
+        "validation": {
+          "recall_at_3": 0.8763796909492273,
+          "ndcg_at_3": 0.835277771492391,
+          "precision_at_3": 0.3487858719646799,
+          "micro_recall_at_3": 0.8633879781420765,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 10,
+              "recall_at_3": 0.5263157894736842,
+              "ranked_top3_records": 80,
+              "recorded_label_precision_at_3": 0.125
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 11,
+              "recall_at_3": 0.9166666666666666,
+              "ranked_top3_records": 122,
+              "recorded_label_precision_at_3": 0.09016393442622951
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 18,
+              "recall_at_3": 0.6428571428571429,
+              "ranked_top3_records": 100,
+              "recorded_label_precision_at_3": 0.18
+            }
+          }
+        }
+      },
+      {
+        "smoothing": 20,
+        "validation": {
+          "recall_at_3": 0.8763796909492273,
+          "ndcg_at_3": 0.835277771492391,
+          "precision_at_3": 0.3487858719646799,
+          "micro_recall_at_3": 0.8633879781420765,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 10,
+              "recall_at_3": 0.5263157894736842,
+              "ranked_top3_records": 80,
+              "recorded_label_precision_at_3": 0.125
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 11,
+              "recall_at_3": 0.9166666666666666,
+              "ranked_top3_records": 122,
+              "recorded_label_precision_at_3": 0.09016393442622951
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 18,
+              "recall_at_3": 0.6428571428571429,
+              "ranked_top3_records": 100,
+              "recorded_label_precision_at_3": 0.18
+            }
+          }
+        }
+      },
+      {
+        "smoothing": 100,
+        "validation": {
+          "recall_at_3": 0.88962472406181,
+          "ndcg_at_3": 0.8419002880486824,
+          "precision_at_3": 0.35320088300220753,
+          "micro_recall_at_3": 0.8743169398907104,
+          "per_family": {
+            "compressed_air": {
+              "positive_records": 119,
+              "retrieved_at_3": 119,
+              "recall_at_3": 1.0,
+              "ranked_top3_records": 151,
+              "recorded_label_precision_at_3": 0.7880794701986755
+            },
+            "steam_traps": {
+              "positive_records": 19,
+              "retrieved_at_3": 8,
+              "recall_at_3": 0.42105263157894735,
+              "ranked_top3_records": 57,
+              "recorded_label_precision_at_3": 0.14035087719298245
+            },
+            "steam_insulation": {
+              "positive_records": 12,
+              "retrieved_at_3": 11,
+              "recall_at_3": 0.9166666666666666,
+              "ranked_top3_records": 122,
+              "recorded_label_precision_at_3": 0.09016393442622951
+            },
+            "condensate": {
+              "positive_records": 5,
+              "retrieved_at_3": 0,
+              "recall_at_3": 0.0,
+              "ranked_top3_records": 0,
+              "recorded_label_precision_at_3": null
+            },
+            "cooling": {
+              "positive_records": 28,
+              "retrieved_at_3": 22,
+              "recall_at_3": 0.7857142857142857,
+              "ranked_top3_records": 123,
+              "recorded_label_precision_at_3": 0.17886178861788618
+            }
+          }
+        }
+      }
+    ],
+    "naics_baseline_selected_smoothing": 100,
+    "refit_on_validation": false
+  },
+  "test": {
+    "learned_logistic": {
+      "recall_at_3": 0.8743016759776536,
+      "ndcg_at_3": 0.8191314149007272,
+      "precision_at_3": 0.35940409683426444,
+      "micro_recall_at_3": 0.8391304347826087,
+      "per_family": {
+        "compressed_air": {
+          "positive_records": 136,
+          "retrieved_at_3": 136,
+          "recall_at_3": 1.0,
+          "ranked_top3_records": 179,
+          "recorded_label_precision_at_3": 0.7597765363128491
+        },
+        "steam_traps": {
+          "positive_records": 30,
+          "retrieved_at_3": 1,
+          "recall_at_3": 0.03333333333333333,
+          "ranked_top3_records": 1,
+          "recorded_label_precision_at_3": 1.0
+        },
+        "steam_insulation": {
+          "positive_records": 15,
+          "retrieved_at_3": 15,
+          "recall_at_3": 1.0,
+          "ranked_top3_records": 178,
+          "recorded_label_precision_at_3": 0.08426966292134831
+        },
+        "condensate": {
+          "positive_records": 8,
+          "retrieved_at_3": 0,
+          "recall_at_3": 0.0,
+          "ranked_top3_records": 0,
+          "recorded_label_precision_at_3": null
+        },
+        "cooling": {
+          "positive_records": 41,
+          "retrieved_at_3": 41,
+          "recall_at_3": 1.0,
+          "ranked_top3_records": 179,
+          "recorded_label_precision_at_3": 0.22905027932960895
+        }
+      },
+      "bootstrap_95_percent_ci": {
+        "recall_at_3": [
+          0.8314711359404098,
+          0.9134078212290503
+        ],
+        "ndcg_at_3": [
+          0.7764437117079457,
+          0.8594881305031963
+        ]
+      }
+    },
+    "global_prevalence": {
+      "recall_at_3": 0.8715083798882681,
+      "ndcg_at_3": 0.8177016771707658,
+      "precision_at_3": 0.3575418994413408,
+      "micro_recall_at_3": 0.8347826086956521,
+      "per_family": {
+        "compressed_air": {
+          "positive_records": 136,
+          "retrieved_at_3": 136,
+          "recall_at_3": 1.0,
+          "ranked_top3_records": 179,
+          "recorded_label_precision_at_3": 0.7597765363128491
+        },
+        "steam_traps": {
+          "positive_records": 30,
+          "retrieved_at_3": 0,
+          "recall_at_3": 0.0,
+          "ranked_top3_records": 0,
+          "recorded_label_precision_at_3": null
+        },
+        "steam_insulation": {
+          "positive_records": 15,
+          "retrieved_at_3": 15,
+          "recall_at_3": 1.0,
+          "ranked_top3_records": 179,
+          "recorded_label_precision_at_3": 0.08379888268156424
+        },
+        "condensate": {
+          "positive_records": 8,
+          "retrieved_at_3": 0,
+          "recall_at_3": 0.0,
+          "ranked_top3_records": 0,
+          "recorded_label_precision_at_3": null
+        },
+        "cooling": {
+          "positive_records": 41,
+          "retrieved_at_3": 41,
+          "recall_at_3": 1.0,
+          "ranked_top3_records": 179,
+          "recorded_label_precision_at_3": 0.22905027932960895
+        }
+      },
+      "bootstrap_95_percent_ci": {
+        "recall_at_3": [
+          0.8295856610800746,
+          0.9115456238361266
+        ],
+        "ndcg_at_3": [
+          0.77485279253173,
+          0.8582764940505475
+        ]
+      }
+    },
+    "naics_frequency": {
+      "recall_at_3": 0.9152700186219738,
+      "ndcg_at_3": 0.8431106353549292,
+      "precision_at_3": 0.3780260707635009,
+      "micro_recall_at_3": 0.8826086956521739,
+      "per_family": {
+        "compressed_air": {
+          "positive_records": 136,
+          "retrieved_at_3": 136,
+          "recall_at_3": 1.0,
+          "ranked_top3_records": 179,
+          "recorded_label_precision_at_3": 0.7597765363128491
+        },
+        "steam_traps": {
+          "positive_records": 30,
+          "retrieved_at_3": 17,
+          "recall_at_3": 0.5666666666666667,
+          "ranked_top3_records": 70,
+          "recorded_label_precision_at_3": 0.24285714285714285
+        },
+        "steam_insulation": {
+          "positive_records": 15,
+          "retrieved_at_3": 12,
+          "recall_at_3": 0.8,
+          "ranked_top3_records": 141,
+          "recorded_label_precision_at_3": 0.0851063829787234
+        },
+        "condensate": {
+          "positive_records": 8,
+          "retrieved_at_3": 0,
+          "recall_at_3": 0.0,
+          "ranked_top3_records": 0,
+          "recorded_label_precision_at_3": null
+        },
+        "cooling": {
+          "positive_records": 41,
+          "retrieved_at_3": 38,
+          "recall_at_3": 0.926829268292683,
+          "ranked_top3_records": 147,
+          "recorded_label_precision_at_3": 0.2585034013605442
+        }
+      },
+      "bootstrap_95_percent_ci": {
+        "recall_at_3": [
+          0.8798882681564246,
+          0.945996275605214
+        ],
+        "ndcg_at_3": [
+          0.8058954724272835,
+          0.8781466420619467
+        ]
+      }
+    }
+  },
+  "paired_test_differences_model_minus_baseline": {
+    "global_prevalence": {
+      "recall_at_3": {
+        "mean_difference": 0.002793296089385475,
+        "paired_bootstrap_95_percent_ci": [
+          0.0,
+          0.008379888268156424
+        ]
+      },
+      "ndcg_at_3": {
+        "mean_difference": 0.0014297377299613636,
+        "paired_bootstrap_95_percent_ci": [
+          -0.0024773173376202106,
+          0.006035079390233589
+        ]
+      }
+    },
+    "naics_frequency": {
+      "recall_at_3": {
+        "mean_difference": -0.040968342644320296,
+        "paired_bootstrap_95_percent_ci": [
+          -0.07728119180633146,
+          -0.007425512104282967
+        ]
+      },
+      "ndcg_at_3": {
+        "mean_difference": -0.02397922045420213,
+        "paired_bootstrap_95_percent_ci": [
+          -0.04606507086115569,
+          -0.0027913810116828755
+        ]
+      }
+    }
+  },
+  "bootstrap": {
+    "resamples": 4000,
+    "unit": "assessment record",
+    "paired": true,
+    "limitation": "Record-level intervals do not account for unknown repeat companies or assessment centers."
+  },
+  "duplicate_audit": {
+    "train_validation_exact_feature_overlap": 0,
+    "train_test_exact_feature_overlap": 0,
+    "validation_test_exact_feature_overlap": 0
+  },
+  "optimization": [
+    {
+      "label": "compressed_air",
+      "iterations": 4,
+      "converged": true,
+      "max_abs_gradient": 5.534853534216493e-16
+    },
+    {
+      "label": "steam_traps",
+      "iterations": 4,
+      "converged": true,
+      "max_abs_gradient": 2.9560611984560094e-15
+    },
+    {
+      "label": "steam_insulation",
+      "iterations": 3,
+      "converged": true,
+      "max_abs_gradient": 9.594670422862249e-10
+    },
+    {
+      "label": "condensate",
+      "iterations": 3,
+      "converged": true,
+      "max_abs_gradient": 7.57368595416796e-10
+    },
+    {
+      "label": "cooling",
+      "iterations": 3,
+      "converged": true,
+      "max_abs_gradient": 3.96836387688956e-10
+    }
+  ],
+  "deployment_gate": {
+    "status": "failed_stronger_baseline_comparison",
+    "decision": "Research demonstration only; do not promote model rankings as validated engineering priorities or hide lower-ranked families.",
+    "note": "The test set remains fixed; it must not become a tuning set after this result."
+  },
+  "metric_note": "Binary relevance means a recommendation was recorded. Macro recall averages per-record recall; nDCG uses binary gains at ranks 1-3. Stable tie order follows labels.",
+  "limitations": [
+    "Selection requires at least one target label; not evaluated on zero-target-label facilities.",
+    "Absent labels are unrecorded, not verified negatives. Logistic loss uses observed/non-observed labels as a ranking surrogate.",
+    "Assessment IDs are distinct; firm identity is unavailable, so repeat facilities cannot be grouped reliably.",
+    "US historical practice and selected ARC families do not establish suitability or performance in Türkiye.",
+    "Savings and costs, recommendation text, product text, ID and year are not input features.",
+    "Only five families are modeled; a low rank does not rule out a useful measure.",
+    "No independent human review, field savings, runtime LLM, or calibrated success probability is established."
+  ]
+}
