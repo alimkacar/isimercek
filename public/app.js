@@ -245,7 +245,7 @@ function renderPlan(report) {
     kpi(`≈ ${number(plan.waterM3)} m³`, 'Yıllık su tasarrufu'));
   root.append(element('p', 'eyebrow', 'BU TESİS İÇİN UYGULAMA PLANI'),
     element('h3', '', `Karar sınırı: ${number(plan.limitMonths)} ay geri ödeme${plan.limitSource === 'owner' ? ' (işletmenin beyanı)' : ' (Task 1 referansı)'}`),
-    element('p', 'muted', 'Eşikler bu tesisin girdilerinden, aynı hesap motoruyla tersinden çözüldü; pompa elektriği ve bakım gideri sabit kabul edildi. Sahada ölçülen değer eşiğin doğru tarafındaysa karar değişmez.'), kpis, planList(plan));
+    element('p', 'muted', 'Her eşik, diğer girdiler bu tesisteki değerinde kalırken aynı hesap motoruyla tersinden çözüldü; pompa elektriği ve bakım gideri sabit kabul edildi. Birden fazla değer eşiğe yaklaşırsa senaryoyu ölçülen değerlerle yeniden hesaplayın.'), kpis, planList(plan));
 }
 
 function makeTable(rows, className = 'report-table', header = null) {
@@ -300,7 +300,7 @@ function renderReport(report) {
   root.append(element('h3','','Bundan sonra ne yapılmalı?'));
   const steps=preparationSteps(report);
   if(steps.length)root.append(stepList(steps,false));
-  if(report.plan)root.append(element('p','report-note',`Karar sınırı: ${number(report.plan.limitMonths)} ay geri ödeme${report.plan.limitSource === 'owner' ? ' (işletmenin beyanı)' : ' (Task 1 referansı)'}. Eşikler bu tesisin girdilerinden hesaplandı.`),planList(report.plan));
+  if(report.plan)root.append(element('p','report-note',`Karar sınırı: ${number(report.plan.limitMonths)} ay geri ödeme${report.plan.limitSource === 'owner' ? ' (işletmenin beyanı)' : ' (Task 1 referansı)'}. Her eşik, diğer girdiler sabitken bu tesisin değerlerinden hesaplandı.`),planList(report.plan));
   else if(!steps.length)root.append(element('p','report-note',s.status === 'ineligible' ? 'Kondens yerine tesiste mevcut diğer sistemler için bir uzmanla inceleme planlayın. Bu rapordan kondens tasarrufu sonucu çıkarılamaz.' : 'Bir enerji uzmanıyla geri kullanım uygunluğunu, ek debiyi, sıcaklıkları ve çalışma süresini sahada doğrulayın. Maliyetleri tekliflerle güncelleyin. Uygulama sonrasında aynı kapsamda tüketim ve üretim ölçerek etkiyi karşılaştırın.'));
   root.append(element('p','report-note','Model sınırı: deneysel sıralama basit sektör karşılaştırmasını geçmedi. Türkiye’de saha doğrulaması yoktur; sıralama teknik uygunluk veya tasarruf olasılığı değildir.'));
   const audit=element('details','input-help report-audit');audit.append(element('summary','','Ayrıntılı hesap ve model kaydı'),element('p','report-note','Girdiler, katsayılar ve model sınırları. “Bilinmiyor” sıfır anlamına gelmez. Veri dosyası (JSON) ayrıca indirilebilir.'),element('div','report-pre',buildReportText(report)));root.append(audit);

@@ -23,7 +23,7 @@ export function energyStatus(report) {
   if (tep < TEP_THRESHOLD) return { status: 'below', tep,
     title: `Yıllık ≈ ${fmt(tep)} TEP: 1.000 TEP eşiğinin altında.`,
     points: [
-      `Yönetmelik katsayılarıyla (elektrik 860 kcal/kWh, doğal gaz 8.250 kcal/Sm³) hesaplandı. Enerji yöneticisi, dört yılda bir etüt ve ISO 50001 yükümlülüğü son üç yılın ortalaması 1.000 TEP ve üzeri olan sanayi işletmelerinde var; bu tesiste zorunlu değil, kayıp bir etütle kendiliğinden ortaya çıkmıyor.`,
+      `Yönetmelik katsayılarıyla (elektrik 860 kcal/kWh, doğal gaz 8.250 kcal/Sm³) hesaplandı. Enerji yöneticisi, dört yılda bir etüt ve ISO 50001 yükümlülüğü son üç yılın ortalaması 1.000 TEP ve üzeri olan sanayi işletmelerinde var; bu tesiste zorunlu değil; zorunlu etüt olmadığı için kayıplar kendiliğinden ortaya çıkmıyor.`,
       'Verimlilik artırıcı proje (VAP) desteği enerji yöneticisi ve ISO 50001 istiyor. Bu tesis ancak ikisini gönüllü kurarsa başvurabilir.',
       'Uygun destek yolu TÜBİTAK 1831 Yeşil İnovasyon mentörlüğü: KOBİ’lere %90 hibeyle, çözüm ortağı üzerinden, 6 ayda ve proje başına en çok 280 bin TL.'
     ] };

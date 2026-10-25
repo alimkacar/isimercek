@@ -4,10 +4,10 @@ export const annualPeriod = { kind: "year", start: "2023-01-01", end: "2023-12-3
 export const monthlyPeriod = { kind: "month", start: "2025-09-01", end: "2025-09-30", label: "Eylül 2025" };
 export const demoEmissionFactors = {
   electricity: { value: 0.474, unit: "tCO2/MWh", year: 2022, energyBasis: "electricity",
-    source: "16 Ekim 2026 yerel doğrulama promptundaki ETKB 2022 dağıtım faktörü; demo için aktarılmıştır, güncellik doğrulanmamıştır",
+    source: "ETKB 2022 şebeke emisyon faktörü, dağıtıma bağlı tüketici (Task 1 kaynağı); demo varsayımı, güncelliği doğrulanmadı",
     isDemoAssumption: true },
   gas: { value: 0.20196, unit: "tCO2/MWh", year: 2006, energyBasis: "LHV",
-    source: "16 Ekim 2026 yerel doğrulama promptundaki gaz faktörü; IPCC 2006 referans varsayımı, güncellik doğrulanmamıştır",
+    source: "IPCC 2006 doğal gaz varsayılan faktörü, 56,1 tCO₂/TJ (Task 1 kaynağı); demo varsayımı, güncelliği doğrulanmadı",
     isDemoAssumption: true }
 };
 export const turgutlu = {

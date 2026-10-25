@@ -2,9 +2,13 @@
 
 ## 25 Ekim 2026 — tesise özel uygulama planı (sürüm 0.7.0)
 
-`npm test` → **59 test, 59 başarılı**. Yeni 7 test: Turgutlu ≈ 788,3 TEP ve 1.000 TEP altı durumu; karar eşikleri (674,7 kg/saat; 72,9 kg/saat; 60,5 °C; 693.202 TL; 12,48 TL/Sm³; %18,61 gaz zammında 8,1 ay); eşik değerleri motora geri konduğunda geri ödemenin tam 15,0 ay çıkması; işletmenin 18 ay beyanıyla eşiklerin değişmesi (574,4 kg/saat; 831.842 TL); 6 ay sınırında destek, 2,5 milyon TL yatırımda erteleme kararı; önlem ailelerine tesisin sayılarıyla yazılan sonraki adımlar; metin raporunda plan; belgedeki geri ödeme beyanının ay/yıl dönüşümüyle okunması.
+`npm test` → **59 test, 59 başarılı**. Yeni 7 test: Turgutlu ≈ 788,5 TEP ve 1.000 TEP altı durumu; karar eşikleri (674,7 kg/saat; 72,9 kg/saat; 60,5 °C; 693.202 TL; 12,48 TL/Sm³; %18,61 gaz zammında 8,1 ay); eşik değerleri motora geri konduğunda geri ödemenin tam 15,0 ay çıkması; işletmenin 18 ay beyanıyla eşiklerin değişmesi (574,4 kg/saat; 831.842 TL); 6 ay sınırında destek, 2,5 milyon TL yatırımda erteleme kararı; önlem ailelerine tesisin sayılarıyla yazılan sonraki adımlar; metin raporunda plan; belgedeki geri ödeme beyanının ay/yıl dönüşümüyle okunması.
 
 Tarayıcı kontrolü (taklit Gemini yanıtıyla): yükümlülük paneli, 5 inceleme alanında tesise özel adımlar, Senaryo'da uygulama planı (4 eşik kartı + 6 adım), raporda plan ve durum. Konsol hatası yok; 390 piksel genişlikte taşma yok.
+
+**Canlı yayın kontrolü (25 Ekim, 15.17, commit c695c72):** gerçek Gemini çağrısı gemini-3.5-flash-lite, 5,5 saniye, tek denemede. 25 alan önerildi, 23'ünün alıntısı metinde birebir doğrulandı (kalan ikisi yıllık dönem onayı ve NAICS önerisi); işletme sahibinin satırından “Kabul edilen en uzun geri ödeme = 15 ay” okundu. Onaylar ve CO₂ seçimiyle aktarım sonrası: 788 TEP paneli, 5 inceleme alanında tesise özel adımlar, Senaryo'da plan kartları (≥ 675 kg/saat, ≥ 60,5 °C, ≤ 693.202 TL, ≈ 4.000 m³) ve 6 adım; raporda plan, yükümlülük durumu ve veri kaynağı. Tüm sayılar elle yeniden hesaplanıp doğrulandı. 375 piksel genişlikte yatay taşma yok.
+
+Son düzeltmeler: eşiklerin “diğer girdiler sabitken” hesaplandığı arayüzde ve raporda açıkça yazıldı; yükümlülük metnindeki belirsiz ifade düzeltildi; emisyon katsayısı kaynak metinleri Task 1 kaynaklarına göre yeniden yazıldı (değerler değişmedi).
 
 ## 25 Ekim 2026 — Gemini belge okuma adımı (sürüm 0.6.0)
 
