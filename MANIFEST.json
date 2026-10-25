@@ -34,9 +34,24 @@
       "sha256": "c66938d49102e03ce2837fd86e253abe29d811f138d403077a28f78bb0b2a123"
     },
     {
+      "path": "docs/Arayuz.png",
+      "bytes": 646701,
+      "sha256": "c8654e534fa3b56de4dcded61c5454d153757d5a6f0072b5a3ec12d46533d15f"
+    },
+    {
       "path": "docs/Gosterim_Rehberi.md",
-      "bytes": 3510,
-      "sha256": "e593d787a20f7e245e606502a875d2fa3269a5e1628acda891f8513271468fad"
+      "bytes": 2249,
+      "sha256": "6ba26adc1639c56617c16117b754b64ad0111be7a2c43db32038c94246931da2"
+    },
+    {
+      "path": "docs/IsiMercek_Final_PDR.pdf",
+      "bytes": 220712,
+      "sha256": "d0be5eca982703d13305af49f03a8676b4742d4c3ad52b782e2926b55d302be9"
+    },
+    {
+      "path": "docs/IsiMercek_Final_Problem_Tanimi.pdf",
+      "bytes": 42191,
+      "sha256": "825c1a724e43b27c76d78bbdaef4d402e7cb3f75184672cb74239f08c44b773d"
     },
     {
       "path": "lib/extract-core.mjs",
@@ -95,8 +110,8 @@
     },
     {
       "path": "public/app.js",
-      "bytes": 44388,
-      "sha256": "526e0072a6741b12a70b2338cc4f22784c5fc2c45dc68faec382056115e7415f"
+      "bytes": 44302,
+      "sha256": "68ad0b3e53fe0281f29ea70abba1b662830205cbf01660aa04df1433d738a8a8"
     },
     {
       "path": "public/core.mjs",
@@ -125,8 +140,8 @@
     },
     {
       "path": "public/index.html",
-      "bytes": 20292,
-      "sha256": "339aeecdfaf58621c7c6cc237c6d46f817a835a97d3f2a196d9443a4d7be4cb5"
+      "bytes": 20171,
+      "sha256": "b8cd28c392b4a0ae8d32c39752b3b3afe3e940a86c586ba0543ae6c3dad51035"
     },
     {
       "path": "public/model.json",
@@ -140,8 +155,8 @@
     },
     {
       "path": "public/styles.css",
-      "bytes": 34571,
-      "sha256": "ae8d8a7d86d6f1b363fa121cfdb0b393bb00487dc96a252f5d992216340c8df1"
+      "bytes": 34983,
+      "sha256": "55223a08e0e561b76a2621f8b36bc6e880b8716ae8bbdee47cfea328185972a4"
     },
     {
       "path": "server.mjs",

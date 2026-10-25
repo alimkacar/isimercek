@@ -332,7 +332,7 @@ async function runExtraction() {
   } catch (error) {
     setExtractStatus(`${error.message} Hesaplar ve hazır örnekler bu durumdan etkilenmez.`, 'error');
   } finally {
-    extraction.busy = false; button.disabled = false; button.replaceChildren('Gemini ile alanları çıkar ', element('span', '', '↗')); button.lastChild.setAttribute('aria-hidden', 'true');
+    extraction.busy = false; button.disabled = false; button.textContent = 'Gemini ile alanları çıkar';
   }
 }
 
