@@ -2,7 +2,7 @@
 
 ## 25 Ekim 2026 — Gemini belge okuma adımı (sürüm 0.6.0)
 
-Otomatik kontrol: `npm test` → **50 test, 50 başarılı, 0 başarısız** (önceki 35 + 15 yeni).
+Otomatik kontrol: `npm test` → **52 test, 52 başarılı, 0 başarısız** (önceki 35 + 17 yeni).
 
 Yeni testlerin kapsamı:
 
@@ -16,7 +16,9 @@ Yeni testlerin kapsamı:
 
 Tarayıcı kontrolü (Gemini yanıtı test verisiyle taklit edilerek): Belgeden doldurmayı dene → Gemini ile alanları çıkar → 24 öneri, 22'si metinde doğrulandı, 4 onay kullanıcıda → aktarım sonrası 9.165,9 MWh ve 996,3 kWh/ton; kondens 302,1 MWh, %3,3, 554.562 TL, 9,7 ay, 58,83 tCO₂; raporda veri kaynağı bölümü. Konsol hatası yok. 390 piksel genişlikte yatay taşma yok.
 
-**Henüz yapılmadı:** gerçek Gemini çağrısıyla uçtan uca deneme (çalışma ortamından Google API'sine erişim kapalıydı). Vercel yayınından sonra gizli sekmede yapılmalı ve sonucu buraya eklenmeli.
+**Canlı yayın kontrolü (25 Ekim, 14.45, https://isimercek.vercel.app):** `/api/extract` → `configured: true`. Gerçek Gemini çağrısı: gemini-3.5-flash-lite, düşük düşünme düzeyi, ilk denemede 4,7 saniye. 24 alanın tamamı beklenen değerle geldi; 22'sinin alıntısı metinde birebir doğrulandı, 4 onay kullanıcıya bırakıldı. 12 aylık elektrik satırı ayrı okundu, toplamı (1.350.000 kWh) kod hesapladı; üst ısıl değer kullanılmadı. Onaylar ve CO₂ seçimiyle aktarım sonrası: 9.165,9 MWh, 996,3 kWh/ton; model sıralaması üretildi (NAICS 3114); kondens 302,1 MWh/yıl (%3,3), 554.562 TL, 9,7 ay, 58,83 tCO₂; raporda veri kaynağı bölümü.
+
+İlk canlı denemede (eski sıra: 3.8 Flash → flash-latest, varsayılan düşünme) Gemini 55 saniyede yanıt vermedi (504). Düzeltme: düşük düşünme düzeyi, Flash-Lite önceliği, model başına 22 sn zaman aşımı. Ek koruma: başka sitelerden gelen tarayıcı istekleri 403; IP başına 10 dakikada 20, örnek başına saatte 300 çıkarım.
 
 ## 23 Ekim 2026 — açıklamalı örnek ve hazırlık rehberi
 

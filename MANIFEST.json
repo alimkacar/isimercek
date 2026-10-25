@@ -20,8 +20,8 @@
     },
     {
       "path": "KONTROL_NOTU.md",
-      "bytes": 7257,
-      "sha256": "1e3b5fadb1ba223df3fb04bf6f89b0061fcd6f5d8da4323a36de5fcacc1c4575"
+      "bytes": 8084,
+      "sha256": "392c1471b65edb20dc9cc33892e34cfbb51bf181b0fcf32c424f417ff3505b1c"
     },
     {
       "path": "README_TR.md",
@@ -45,13 +45,13 @@
     },
     {
       "path": "docs/IsiMercek_Final_PDR.pdf",
-      "bytes": 220712,
-      "sha256": "d0be5eca982703d13305af49f03a8676b4742d4c3ad52b782e2926b55d302be9"
+      "bytes": 220951,
+      "sha256": "682b2c72addf158bc084e6d1338ceb25d1015f8dd14d17524cbde8c25c96b174"
     },
     {
       "path": "docs/IsiMercek_Final_Problem_Tanimi.pdf",
       "bytes": 42191,
-      "sha256": "825c1a724e43b27c76d78bbdaef4d402e7cb3f75184672cb74239f08c44b773d"
+      "sha256": "9bcef9a7ce4959355467927bdf61a70ad3e24f78054fb2ecdca41e3f6c4b1cd2"
     },
     {
       "path": "lib/extract-core.mjs",
