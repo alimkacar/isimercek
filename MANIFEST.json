@@ -25,13 +25,13 @@
     },
     {
       "path": "README_TR.md",
-      "bytes": 4973,
-      "sha256": "d3873536067c225d9f61d4068b06ceb4d9eddae37badf1dcdda92c2d1a8d1f05"
+      "bytes": 5545,
+      "sha256": "9b0de4b26a3d98197f53feee932effe7a4b9f40e634e8a27e169c7ece1e4d77e"
     },
     {
       "path": "api/extract.js",
-      "bytes": 893,
-      "sha256": "c66938d49102e03ce2837fd86e253abe29d811f138d403077a28f78bb0b2a123"
+      "bytes": 1428,
+      "sha256": "c15bec1383dd4f3975d97c1cf8b73d16fe1671c46ca9dac6d9f368f863cd2e10"
     },
     {
       "path": "docs/Arayuz.png",
@@ -55,8 +55,8 @@
     },
     {
       "path": "lib/extract-core.mjs",
-      "bytes": 32289,
-      "sha256": "d9c8e9567ffedf2cef85b5d9a164ccf6dabf774b3edcea50f3ffcae6a5e34831"
+      "bytes": 34988,
+      "sha256": "a8129ba12c402b1495b434be926eb4870d5dd6e5f21c31b424ff881e915b63d7"
     },
     {
       "path": "ml/README_TR.md",
@@ -160,8 +160,8 @@
     },
     {
       "path": "server.mjs",
-      "bytes": 4370,
-      "sha256": "32ae7cd3439a09111361be55b0d88ff355d52dd0f13c138decc8666c501a83e1"
+      "bytes": 4890,
+      "sha256": "bcd9aa91bb0f0da58aa05208af94cd5fd66cf4931cf014839a492c5b797d0d55"
     },
     {
       "path": "tests/core.test.mjs",
@@ -170,8 +170,8 @@
     },
     {
       "path": "tests/extract.test.mjs",
-      "bytes": 14822,
-      "sha256": "c7b36e8f1041316a0db6dfbef5472135a91951cc5614174c99f21795548cc677"
+      "bytes": 16917,
+      "sha256": "c3543b6c880c98fd854c607773eabe35f901d09872a79a879074b73d9dc4575d"
     },
     {
       "path": "tests/guidance.test.mjs",
@@ -195,8 +195,8 @@
     },
     {
       "path": "tests/server.test.mjs",
-      "bytes": 2420,
-      "sha256": "e1f9692f4c5f8791a8f279cd1ae06aba037b81d966e564d3f6642d9c0ea83339"
+      "bytes": 2611,
+      "sha256": "e89e05a246f3baa0abf7a5443a9c472e366a1032ca9fb4ffd2ab081962d893f4"
     },
     {
       "path": "vercel.json",

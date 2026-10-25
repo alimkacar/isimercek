@@ -36,6 +36,7 @@ test('extraction endpoint is the only write route, reports a missing key and nev
     assert.match((await post.json()).error, /anahtarı tanımlı değil/);
     assert.equal((await fetch(base + '/api/extract', { method: 'POST', body: '{bozuk' })).status, 400);
     assert.equal((await fetch(base + '/api/extract', { method: 'PUT', body: '{}' })).status, 405);
+    assert.equal((await fetch(base + '/api/extract', { method: 'POST', headers: { origin: 'https://evil.example', 'content-type': 'application/json' }, body: '{"text":"x"}' })).status, 403);
     assert.equal((await fetch(base + '/lib/extract-core.mjs')).status, 404);
     assert.equal((await fetch(base + '/extraction.mjs')).status, 200);
   } finally {

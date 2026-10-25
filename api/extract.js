@@ -1,5 +1,7 @@
 // Vercel sunucu fonksiyonu: POST /api/extract. Gemini anahtarı yalnız sunucudaki GEMINI_API_KEY ortam değişkenindedir.
-import { handleExtract, extractStatus } from '../lib/extract-core.mjs';
+import { handleExtract, extractStatus, createRateLimiter, originAllowed, clientIp } from '../lib/extract-core.mjs';
+
+const limit = createRateLimiter();
 
 export default async function handler(req, res) {
   res.setHeader('Cache-Control', 'no-store');
@@ -8,6 +10,13 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'GET, POST');
     res.status(405).json({ ok: false, error: 'Yalnız POST isteği desteklenir.' });
+    return;
+  }
+  if (!originAllowed(req.headers)) { res.status(403).json({ ok: false, error: 'Bu uç nokta yalnız IsıMercek arayüzünden kullanılabilir.' }); return; }
+  const gate = limit(clientIp(req.headers, req.socket?.remoteAddress));
+  if (!gate.ok) {
+    res.setHeader('Retry-After', String(gate.retryAfter));
+    res.status(429).json({ ok: false, error: 'Kısa sürede çok fazla çıkarım istendi. Birkaç dakika sonra tekrar deneyin.' });
     return;
   }
   let body = req.body;

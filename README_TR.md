@@ -33,7 +33,7 @@ Statik arayüz `public/`, sunucu fonksiyonu `api/extract.js`, ortak çıkarım k
 3. **Settings → Environment Variables:** `GEMINI_API_KEY` (Google AI Studio anahtarı). İsteğe bağlı `GEMINI_MODEL`. Değişkenden sonra yeniden dağıtın.
 4. Kontrol: `https://<proje>.vercel.app/api/extract` adresi `{"configured":true}` döndürmeli. Ardından gizli sekmede uçtan uca deneyin.
 
-Anahtar yalnız sunucu ortam değişkenindedir; tarayıcıya gönderilmez. Varsayılan model sırası `gemini-3.8-flash → gemini-flash-latest → gemini-3.5-flash-lite`; bulunamazsa hesapta erişilebilir bir Flash modeli otomatik seçilir.
+Anahtar yalnız sunucu ortam değişkenindedir; tarayıcıya ve GitHub'a gitmez. Maliyet koruması: `/api/extract` başka sitelerden gelen tarayıcı isteklerini reddeder (Origin kontrolü) ve IP başına 10 dakikada 20, sunucu örneği başına saatte 300 çıkarımla sınırlıdır. Ücretli API kullanılıyorsa asıl üst sınır Gemini tarafında küçük bir ön ödeme bakiyesidir. Varsayılan model sırası hız için `gemini-3.5-flash-lite → gemini-3.8-flash → gemini-flash-latest`; istekler düşük düşünme düzeyiyle (`thinkingLevel: low`) gönderilir, bir model 22 saniyede yanıt vermezse sıradakine geçilir; hiçbiri bulunamazsa hesapta erişilebilir bir Flash modeli otomatik seçilir. Başarılı yanıt, hangi modelin kaç saniyede yanıt verdiğini `diagnostics` alanında gösterir.
 
 ## Yerel çalıştırma
 
@@ -41,7 +41,7 @@ Node.js 20 veya üzeri gerekir. `npm start` → <http://127.0.0.1:4310>. Belgede
 
 ## Kontroller
 
-`npm test`: 50 otomatik test (hesap motoru, model eşitliği, giriş kontrolleri, çıkarım doğrulaması, model/şema yedekleri, sunucu rotaları). Örnek belgeden onaylanan alanların, doğrulanmış Turgutlu sonucunu (302.074,07 kWh; 554.561,67 TL; 9,74 ay) değiştirilmemiş motordan yeniden ürettiği test edilir. Ayrıntı: `KONTROL_NOTU.md`.
+`npm test`: 52 otomatik test (hesap motoru, model eşitliği, giriş kontrolleri, çıkarım doğrulaması, model/şema yedekleri, sunucu rotaları). Örnek belgeden onaylanan alanların, doğrulanmış Turgutlu sonucunu (302.074,07 kWh; 554.561,67 TL; 9,74 ay) değiştirilmemiş motordan yeniden ürettiği test edilir. Ayrıntı: `KONTROL_NOTU.md`.
 
 Model ve veri: `ml/model_card.md`, `ml/evaluation.json`, `ml/data/provenance.json`; eğitim `python3 ml/train.py` (Python + NumPy) ile yeniden üretilebilir.
 

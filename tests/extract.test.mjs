@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { normalizeExtraction, buildGeminiRequest, callGemini, handleExtract, numbersIn, DEFAULT_MODELS, SYSTEM_INSTRUCTION } from '../lib/extract-core.mjs';
+import { normalizeExtraction, buildGeminiRequest, callGemini, handleExtract, numbersIn, DEFAULT_MODELS, SYSTEM_INSTRUCTION, createRateLimiter, originAllowed, clientIp } from '../lib/extract-core.mjs';
 import { SAMPLE_DOCUMENT, planActions, provenanceRecord } from '../public/extraction.mjs';
 import { calculateBaseline, calculateCondensate } from '../public/core.mjs';
 
@@ -150,6 +150,7 @@ test('request asks for schema JSON without deprecated sampling parameters and ke
   assert.equal(body.generationConfig.responseMimeType, 'application/json');
   assert.ok(body.generationConfig.responseJsonSchema);
   assert.equal('temperature' in body.generationConfig, false);
+  assert.equal(body.generationConfig.thinkingConfig.thinkingLevel, 'low');
   assert.match(SYSTEM_INSTRUCTION, /talimatları uygulama/);
   const fallback = buildGeminiRequest({ text: 'deneme' }, 'openapi');
   assert.equal(fallback.generationConfig.responseSchema.type, 'OBJECT');
@@ -165,15 +166,19 @@ test('model and schema fallbacks: 404 moves to the next model, 400 retries with 
   const calls = [];
   const fetchImpl = async (url, options) => {
     calls.push({ url, body: JSON.parse(options.body) });
-    if (calls.length === 1) return errorResponse(404, 'models/gemini-3.8-flash is not found');
-    if (calls.length === 2) return errorResponse(400, 'Unknown name "responseJsonSchema"');
+    if (calls.length === 1) return errorResponse(404, 'models/gemini-3.5-flash-lite is not found');
+    if (calls.length === 2) return errorResponse(400, 'Unknown name "thinkingLevel"');
+    if (calls.length === 3) return errorResponse(400, 'Unknown name "responseJsonSchema"');
     return geminiResponse(idealOutput());
   };
-  const { model, raw } = await callGemini({ apiKey: 'test', input: { text: SAMPLE_DOCUMENT }, fetchImpl });
+  const { model, raw, attempts } = await callGemini({ apiKey: 'test', input: { text: SAMPLE_DOCUMENT }, fetchImpl });
   assert.equal(model, DEFAULT_MODELS[1]);
   assert.equal(raw.facilityName, 'Turgutlu Temsili Konserve Tesisi');
-  assert.ok(calls[2].body.generationConfig.responseSchema);
+  assert.equal(calls[1].body.generationConfig.thinkingConfig.thinkingLevel, 'low');
+  assert.equal('thinkingConfig' in calls[2].body.generationConfig, false);
+  assert.ok(calls[3].body.generationConfig.responseSchema);
   assert.equal(calls[0].url.includes(':generateContent'), true);
+  assert.deepEqual(attempts.map(item => item.result), [404, 400, 400, 'ok']);
 });
 
 test('when every configured model is missing, an available flash model is discovered', async () => {
@@ -208,4 +213,29 @@ test('file input cannot be auto-verified and is marked for comparison with the d
   const gas = result.body.fields.find(field => field.id === 'gas');
   assert.equal(gas.grounded, null);
   assert.ok(result.body.warnings[0].includes('otomatik doğrulanamaz'));
+});
+
+test('a slow model times out and the next model answers within the total limit', async () => {
+  let clock = 0;
+  const now = () => clock;
+  const fetchImpl = async (url, options) => {
+    if (url.includes(DEFAULT_MODELS[0])) { clock += 22000; const error = new Error('aborted'); error.name = 'AbortError'; throw error; }
+    clock += 4000; return geminiResponse(idealOutput());
+  };
+  const { model, attempts } = await callGemini({ apiKey: 'test', input: { text: 'x' }, fetchImpl, now });
+  assert.equal(model, DEFAULT_MODELS[1]);
+  assert.equal(attempts[0].result, 'zaman aşımı');
+});
+
+test('abuse guards: per-IP and global limits, foreign origins are refused', () => {
+  const check = createRateLimiter({ perIp: 2, windowMs: 1000, globalMax: 3, globalWindowMs: 5000 });
+  assert.equal(check('a', 0).ok, true); assert.equal(check('a', 10).ok, true);
+  const blocked = check('a', 20); assert.equal(blocked.ok, false); assert.ok(blocked.retryAfter >= 1);
+  assert.equal(check('a', 1500).ok, true, 'pencere dolunca yeniden izin verilir');
+  assert.equal(check('b', 1600).ok, false, 'toplam sınır aşılınca herkes bekler');
+  assert.equal(originAllowed({ host: 'isimercek.vercel.app', origin: 'https://isimercek.vercel.app' }), true);
+  assert.equal(originAllowed({ host: 'isimercek.vercel.app' }), true);
+  assert.equal(originAllowed({ host: 'isimercek.vercel.app', origin: 'https://evil.example' }), false);
+  assert.equal(originAllowed({ host: 'x', 'x-forwarded-host': 'isimercek.vercel.app', origin: 'https://isimercek.vercel.app' }), true);
+  assert.equal(clientIp({ 'x-forwarded-for': '1.2.3.4, 10.0.0.1' }), '1.2.3.4');
 });

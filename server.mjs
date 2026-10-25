@@ -2,7 +2,7 @@ import http from 'node:http';
 import { readFile, realpath } from 'node:fs/promises';
 import { resolve, extname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { handleExtract, extractStatus } from './lib/extract-core.mjs';
+import { handleExtract, extractStatus, createRateLimiter, originAllowed, clientIp } from './lib/extract-core.mjs';
 
 const publicDir = fileURLToPath(new URL('./public/', import.meta.url));
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8',
@@ -27,7 +27,7 @@ function readBody(req) {
   });
 }
 
-export function createAppServer({ env = process.env, fetchImpl = fetch } = {}) {
+export function createAppServer({ env = process.env, fetchImpl = fetch, rateLimit = createRateLimiter() } = {}) {
   return http.createServer(async (req, res) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('Referrer-Policy', 'no-referrer');
@@ -39,6 +39,9 @@ export function createAppServer({ env = process.env, fetchImpl = fetch } = {}) {
     if (path === '/api/extract') {
       if (req.method === 'GET') { sendJson(res, 200, extractStatus(env)); return; }
       if (req.method !== 'POST') { res.setHeader('Allow', 'GET, POST'); sendJson(res, 405, { ok: false, error: 'Yalnız POST isteği desteklenir.' }); return; }
+      if (!originAllowed(req.headers)) { sendJson(res, 403, { ok: false, error: 'Bu uç nokta yalnız IsıMercek arayüzünden kullanılabilir.' }); return; }
+      const gate = rateLimit(clientIp({}, req.socket.remoteAddress));
+      if (!gate.ok) { res.setHeader('Retry-After', String(gate.retryAfter)); sendJson(res, 429, { ok: false, error: 'Kısa sürede çok fazla çıkarım istendi. Birkaç dakika sonra tekrar deneyin.' }); return; }
       let body;
       try { body = JSON.parse(await readBody(req)); }
       catch (error) { sendJson(res, error.status === 413 ? 413 : 400, { ok: false, error: error.status === 413 ? 'İstek en fazla 5 MB olabilir.' : 'İstek gövdesi geçerli JSON değil.' }); return; }
